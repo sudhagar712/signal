@@ -175,10 +175,10 @@ export default function HomeHero() {
   }, { scope: container });
 
   return (
-    <div ref={container} className="relative mb-10 w-full min-h-[100svh] flex items-center justify-center overflow-hidden bg-background pt-24 md:pt-32">
+    <div ref={container} className="relative mb-10 w-full min-h-[100svh] md:min-h-[60svh] lg:min-h-[100svh]  flex items-center justify-center overflow-hidden bg-background pt-24 md:pt-32">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas
+        <Canvas 
           camera={{ position: [0, 0, 7], fov: 45 }}
           gl={{ antialias: true, alpha: true }}
           style={{ background: 'transparent' }}

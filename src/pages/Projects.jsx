@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PageBanner from '../components/sections/PageBanner';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,20 +34,14 @@ export default function Projects() {
   }, []);
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-32">
-      <div className="container mx-auto px-6">
+    <div className="bg-background min-h-screen pb-32">
+      <PageBanner 
+        badge="Portfolio"
+        title="Projects"
+        subtitle="Real projects. Real impact. Every project we deliver is built for performance, durability, and visibility in real environments."
+      />
+      <div className="container mx-auto px-6 pt-24">
         
-        {/* Header */}
-        <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-12">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-8xl font-display font-bold mb-4 tracking-tighter">Visibility <br/>in <span className="text-signal-amber italic">Action</span></h1>
-            <p className="text-xl text-gray-400 font-light">Real projects. Real impact.</p>
-          </div>
-          <div className="mt-8 md:mt-0 max-w-sm text-gray-500 text-sm font-medium">
-            Every project we deliver is built for performance, durability, and visibility in real environments.
-          </div>
-        </div>
-
         {/* Grid */}
         <div className="project-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
           {projects.map((proj) => {

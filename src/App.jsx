@@ -24,7 +24,7 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-background text-white selection:bg-signal-amber selection:text-black">
+    <div className="relative  min-h-screen bg-background text-white selection:bg-signal-amber selection:text-black">
       <CustomCursor />
       <ScrollToTop />
       <Navbar />
@@ -34,7 +34,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/services/led-display" element={<LEDDisplay />} />
+          <Route path="/led-display" element={<LEDDisplay />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

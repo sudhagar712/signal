@@ -72,6 +72,7 @@ export default function Navbar() {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
+    { name: 'LED Display', path: '/led-display' },
     { name: 'Projects', path: '/projects' },
   ];
 
@@ -83,7 +84,7 @@ export default function Navbar() {
           scrolled && !isOpen ? "py-4" : "py-6"
         )}
       >
-        <div className="container mx-auto px-4 md:px-6 pointer-events-auto">
+        <div className="container mx-auto px-4 md:px-0 lg:px-10 pointer-events-auto">
           <nav className={cn(
             "flex items-center justify-between rounded-3xl px-6 py-4 backdrop-blur-md transition-all duration-300 border border-white/5",
             scrolled && !isOpen ? "bg-black/80 shadow-lg" : "bg-black/50"
@@ -108,7 +109,7 @@ export default function Navbar() {
                   key={link.name} 
                   to={link.path}
                   className={cn(
-                    "text-sm font-medium tracking-wide uppercase transition-colors relative group",
+                    "text-sm font-medium tracking-wide uppercase   transition-colors relative group",
                     location.pathname === link.path ? "text-signal-amber" : "text-gray-300 hover:text-white"
                   )}
                 >

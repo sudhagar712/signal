@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Send } from 'lucide-react';
+import PageBanner from '../components/sections/PageBanner';
 
 export default function Contact() {
   const [formState, setFormState] = useState({ state: 'idle', msg: '' });
@@ -14,18 +15,15 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-20 relative">
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-radial from-signal-amber/5 to-transparent opacity-50 z-0 pointer-events-none"></div>
+    <div className="bg-background min-h-screen pb-20 relative">
+      <PageBanner 
+        badge="Get In Touch"
+        title="Contact Us"
+        subtitle="Tell us what you need. We’ll make it stand out. Discuss your project requirements with our engineering team."
+      />
+      <div className="absolute top-[60vh] right-0 w-1/2 h-full bg-gradient-radial from-signal-amber/5 to-transparent opacity-50 z-0 pointer-events-none"></div>
       
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mb-20">
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
-            Let’s Build Your <span className="text-signal-amber">Visibility</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-light">
-            Tell us what you need. We’ll make it stand out.
-          </p>
-        </div>
+      <div className="container mx-auto px-6 relative z-10 pt-24">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
           {/* Form */}

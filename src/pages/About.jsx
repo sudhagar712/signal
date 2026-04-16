@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PageBanner from '../components/sections/PageBanner';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,22 +30,17 @@ export default function About() {
   }, []);
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-20">
-      <div className="container mx-auto px-6">
+    <div className="bg-background min-h-screen pb-20">
+      <PageBanner 
+        badge="About Us"
+        title="About Us"
+        subtitle="Signal is a modern visual solutions company specializing in LED display systems and brand visibility infrastructure."
+      />
+      
+      <div className="container mx-auto px-6 pt-24">
         
-        {/* Hero */}
-        <div className="max-w-5xl mx-auto mb-32">
-          <h1 className="text-5xl md:text-8xl font-display font-bold leading-[1.1] mb-8 about-fade">
-            We Don’t Follow Visibility. <br />
-            <span className="text-signal-amber">We Build It.</span>
-          </h1>
-        </div>
-
         {/* Story */}
         <div className="max-w-3xl mx-auto space-y-12 text-xl md:text-3xl font-light text-gray-300">
-          <p className="about-fade leading-relaxed">
-            Signal is a modern visual solutions company specializing in LED display systems and brand visibility infrastructure.
-          </p>
           <p className="about-fade leading-relaxed text-white font-medium text-2xl md:text-4xl">
             We believe visibility is not an afterthought. <br/>It is a business advantage.
           </p>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float } from '@react-three/drei';
+import { Float, Sphere, MeshDistortMaterial, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
@@ -194,6 +194,69 @@ function Process3DCard({ p, index }) {
   );
 }
 
+// ── 3D Services Background ────────────────────────────────────────────────
+function ServicesBackground3D() {
+  const groupRef = useRef();
+  
+  useFrame((state, delta) => {
+    groupRef.current.rotation.y -= delta * 0.05;
+    groupRef.current.rotation.x += delta * 0.03;
+  });
+
+  return (
+    <group ref={groupRef}>
+      <ambientLight intensity={1} />
+      <directionalLight position={[5, 10, 5]} intensity={2} />
+      
+      {/* Central distorted tech orb */}
+      <Sphere args={[3, 64, 64]} position={[4, 0, -3]}>
+        <MeshDistortMaterial 
+          color="#0EA5E9" 
+          distort={0.4} 
+          speed={1.5} 
+          roughness={0.2} 
+          metalness={0.9} 
+          wireframe={true}
+          transparent
+          opacity={0.15}
+        />
+      </Sphere>
+
+      {/* Deep secondary orb */}
+      <Sphere args={[2, 32, 32]} position={[-4, -2, -6]}>
+        <MeshDistortMaterial 
+          color="#ffffff" 
+          distort={0.2} 
+          speed={1.0} 
+          roughness={0.5} 
+          metalness={0.1} 
+          wireframe={true}
+          transparent
+          opacity={0.05}
+        />
+      </Sphere>
+
+      {/* Floating particles/data points */}
+      <Sparkles 
+        count={300} 
+        scale={20} 
+        size={2} 
+        speed={0.4} 
+        opacity={0.3} 
+        color="#0EA5E9" 
+      />
+      <Sparkles 
+        count={150} 
+        scale={15} 
+        size={4} 
+        speed={0.2} 
+        opacity={0.15} 
+        color="#ffffff" 
+      />
+    </group>
+  );
+}
+
 export default function Home() {
   // Hero entrance
   useEffect(() => {
@@ -216,6 +279,18 @@ export default function Home() {
       ease: 'none',
       scrollTrigger: { trigger: '.cta-section', start: 'top bottom', end: 'bottom top', scrub: true }
     });
+
+    // Services cards 3D stagger
+    gsap.fromTo('.service-card',
+      { y: 100, opacity: 0, rotateX: 10, scale: 0.95 },
+      { 
+        y: 0, opacity: 1, rotateX: 0, scale: 1,
+        duration: 1.2, 
+        stagger: 0.15, 
+        ease: 'power4.out',
+        scrollTrigger: { trigger: '.services-section', start: 'top 75%' }
+      }
+    );
 
     return () => ScrollTrigger.getAll().forEach(st => st.kill());
   }, []);
@@ -261,49 +336,67 @@ export default function Home() {
     <div className="bg-background">
 
       {/* ── HERO ─────────────────────────────────────── */}
-
-      <HomeHero />
+<div className="">
+  <HomeHero />
+</div>
+    
 
 
       {/* ── WHAT WE DO ────────────────────────────────── */}
-      <section className="relative rounded-3xl  z-20 py-32 bg-background overflow-hidden border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        {/* Subtle bloom matching the hero */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-signal-amber/5 via-background to-background pointer-events-none" />
+      <section className="services-section relative rounded-3xl z-20 py-32 bg-background overflow-hidden border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        
+        {/* 3D Render Canvas */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Canvas camera={{ position: [0, 0, 8], fov: 50 }} gl={{ alpha: true }}>
+            <ServicesBackground3D />
+          </Canvas>
+        </div>
+
+        {/* Ambient Gradients over Canvas */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] z-[1] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[120%] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-signal-amber/10 via-transparent to-transparent pointer-events-none z-[1]" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <FadeUp className="mb-20 max-w-4xl">
-            <span className="text-xs font-bold tracking-widest text-signal-amber uppercase block mb-4">What We Do</span>
-            <h2 className="text-4xl md:text-6xl font-display font-semibold tracking-tighter">
+          <FadeUp className="mb-24 max-w-4xl">
+            <span className="text-xs font-bold tracking-[0.2em] text-signal-amber uppercase block mb-4">What We Do</span>
+            <h2 className="text-5xl md:text-6xl lg:text-8xl font-display font-bold tracking-tighter drop-shadow-xl">
               Visibility Solutions.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Built to Perform.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 italic drop-shadow-md">Built to Perform.</span>
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: '1500px' }}>
             {services.map((s, i) => (
-              <FadeUp key={i}>
+              <div key={i} className="service-card">
                 <Link
                   to={s.link}
-                  className="group relative flex flex-col h-full bg-white/[0.02] backdrop-blur-sm border border-white/10 p-10 rounded-[2rem] overflow-hidden hover:border-signal-amber/50 hover:bg-white/[0.04] transition-all duration-500 hover:-translate-y-2 shadow-lg hover:shadow-[0_0_40px_rgba(14,165,233,0.15)]"
+                  className="group relative flex flex-col h-full bg-[#080808]/40 backdrop-blur-xl border border-white/10 p-10 sm:p-12 rounded-[2rem] overflow-hidden hover:border-signal-amber/40 hover:bg-white/[0.04] transition-all duration-700 hover:-translate-y-3 shadow-2xl hover:shadow-[0_20px_60px_rgba(14,165,233,0.15)]"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-signal-amber/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Subtle inner hover glow */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-signal-amber/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0" />
+                  
                   <div className="relative z-10 flex flex-col h-full">
-                    <h3 className="text-2xl font-display font-semibold mb-2 group-hover:text-signal-amber transition-colors">{s.title}</h3>
-                    <p className="text-gray-500 text-sm mb-8">{s.desc}</p>
-                    <ul className="mt-auto space-y-3">
+                    {/* Glowing Accent Ring */}
+                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-signal-amber/30 to-transparent rounded-full blur-2xl group-hover:bg-signal-amber/50 transition-colors duration-700 pointer-events-none" />
+                    
+                    <h3 className="text-3xl lg:text-4xl font-display font-bold mb-4 group-hover:text-signal-amber transition-colors duration-500 drop-shadow-md text-white">{s.title}</h3>
+                    <p className="text-gray-400 text-base lg:text-lg font-light mb-12 leading-relaxed group-hover:text-white/90 transition-colors duration-500">{s.desc}</p>
+                    
+                    <ul className="mt-auto space-y-5 relative z-10">
                       {s.items.map((item) => (
-                        <li key={item} className="flex items-center gap-3 text-sm text-gray-400">
-                          <span className="w-1.5 h-1.5 rounded-full bg-signal-amber flex-shrink-0" />
+                        <li key={item} className="flex items-center gap-4 text-sm lg:text-base text-gray-500 font-medium group-hover:text-gray-300 transition-colors duration-500">
+                          <span className="w-1.5 h-1.5 rounded-full bg-signal-amber flex-shrink-0 group-hover:scale-[2] transition-transform duration-500 shadow-[0_0_10px_rgba(14,165,233,0.8)]" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-8 text-signal-amber text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all duration-300">
-                      Explore <span>→</span>
+                    
+                    <div className="mt-12 pt-6 border-t border-white/10 text-signal-amber text-xs font-bold uppercase tracking-[0.15em] flex items-center gap-3 group-hover:gap-5 transition-all duration-500">
+                      Explore Solution <span className="group-hover:translate-x-1 transition-transform duration-500 text-lg leading-none">→</span>
                     </div>
                   </div>
                 </Link>
-              </FadeUp>
+              </div>
             ))}
           </div>
         </div>

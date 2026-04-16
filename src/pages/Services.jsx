@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import PageBanner from '../components/sections/PageBanner';
 
 export default function Services() {
   const services = [
@@ -8,7 +9,7 @@ export default function Services() {
       title: 'Next-Gen LED Display Systems',
       desc: 'High-performance indoor and outdoor LED displays designed for clarity, brightness, and durability.',
       tags: ['Indoor', 'Outdoor', 'Custom Sizes', 'Installation', 'Maintenance'],
-      link: '/services/led-display',
+      link: '/led-display',
       isPrimary: true
     },
     {
@@ -44,17 +45,14 @@ export default function Services() {
   ];
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-20">
-      <div className="container mx-auto px-6">
+    <div className="bg-background min-h-screen pb-20">
+      <PageBanner 
+        badge="Our Expertise"
+        title="Services"
+        subtitle="From digital displays to physical branding, we deliver end-to-end solutions that make your business stand out across every touchpoint."
+      />
+      <div className="container mx-auto px-6 pt-24">
         
-        {/* Header */}
-        <div className="max-w-4xl mb-24">
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">Complete Visibility Solutions</h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-light">
-            From digital displays to physical branding, we deliver end-to-end solutions that make your business stand out across every touchpoint.
-          </p>
-        </div>
-
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
