@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Brand Colors ── */
+  --color-background: #050505;
+  --color-foreground: #FFFFFF;
+  --color-signal-amber: #0EA5E9;
+  --color-signal-amber-dark: #0284C7;
+
+  /* Dark surface scale */
+  --color-dark-900: #0A0A0A;
+  --color-dark-800: #141414;
+  --color-dark-700: #1F1F1F;
+
+  /* ── Typography ── */
+  --font-family-sans: 'Poppins', sans-serif;
+  --font-family-display: 'Space Grotesk', sans-serif;
+
+  /* ── Gradient Shortcuts ── */
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-hero-glow: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(14,165,233,0.15) 0deg,
+    #050505 180deg,
+    rgba(14,165,233,0.15) 360deg
+  );
+}
+
+/* ── Global Base ── */
+html { scroll-behavior: auto; }
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-family-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::selection, body *::selection {
+  background-color: var(--color-signal-amber);
+  color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
+
+/* ── Utilities ── */
+.glow-text { text-shadow: 0 0 50px rgba(14,165,233,0.6); }
+.glow-box  { box-shadow: 0 0 50px rgba(14,165,233,0.2); }
+
+/* ── Marquee ── */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+/* ── Gradient backgrounds ── */
+.bg-hero-glow {
+  background-image: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(14,165,233,0.15) 0deg,
+    #050505 180deg,
+    rgba(14,165,233,0.15) 360deg
+  );
+}
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
