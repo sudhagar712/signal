@@ -210,6 +210,13 @@ export default function Home() {
       scrollTrigger: { trigger: '.hero-parallax', start: 'top top', end: 'bottom top', scrub: true }
     });
 
+    // Parallax on CTA bg
+    gsap.to('.cta-bg-image', {
+      yPercent: 30,
+      ease: 'none',
+      scrollTrigger: { trigger: '.cta-section', start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+
     return () => ScrollTrigger.getAll().forEach(st => st.kill());
   }, []);
 
@@ -370,21 +377,35 @@ export default function Home() {
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────── */}
-      <section className="py-40 relative overflow-hidden text-center">
-        <div className="absolute inset-0 bg-hero-glow opacity-25 pointer-events-none" />
+      <section className="cta-section py-40 relative overflow-hidden text-center bg-[#050505]">
+        {/* Parallax Background Image */}
+        <div className="absolute inset-x-0 -top-[30%] w-full h-[160%] z-0 pointer-events-none">
+           <img 
+             src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop" 
+             alt="Tech core background" 
+             className="cta-bg-image w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale"
+           />
+        </div>
+
+        {/* Blue color overlay */}
+        <div className="absolute inset-0 bg-[#0EA5E9]/80 mix-blend-multiply pointer-events-none z-[1]" />
+        
+        {/* Gradient fades for seamless integration with previous & footer sections */}
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-[#050505] pointer-events-none z-[2]" />
+
         <div className="relative z-10 container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-5xl md:text-8xl font-display font-bold mb-8 leading-[1] tracking-tighter">
+            <h2 className="text-5xl md:text-8xl font-display font-bold mb-8 leading-[1] tracking-tighter text-white drop-shadow-xl">
               Let Your Brand<br />
               Be Seen.{' '}
-              <span className="text-signal-amber glow-text italic">Properly.</span>
+              <span className="text-white italic drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">Properly.</span>
             </h2>
-            <p className="text-xl text-gray-400 font-light mb-12 max-w-xl mx-auto">
+            <p className="text-xl text-white/90 font-light mb-12 max-w-xl mx-auto drop-shadow-md">
               Get in touch with Signal today.
             </p>
             <Link
               to="/contact"
-              className="inline-block px-12 py-5 bg-white text-black font-semibold rounded-full hover:bg-signal-amber transition-colors duration-300 text-lg shadow-[0_0_50px_rgba(245,166,35,0.25)]"
+              className="inline-block px-12 py-5 bg-white text-[#0EA5E9] font-bold tracking-wide rounded-full hover:bg-black hover:text-white transition-all duration-300 text-lg shadow-[0_0_40px_rgba(255,255,255,0.4)] hover:shadow-none hover:-translate-y-1"
             >
               Start Your Project
             </Link>
