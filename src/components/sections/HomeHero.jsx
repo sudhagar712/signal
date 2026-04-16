@@ -180,9 +180,9 @@ export default function HomeHero() {
       <div className="absolute inset-0 z-0">
         <Canvas 
           camera={{ position: [0, 0, 7], fov: 45 }}
-          gl={{ antialias: true, alpha: true }}
+          gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
           style={{ background: 'transparent' }}
-          dpr={[1, 2]}
+          dpr={[1, 1.5]}
         >
           <SceneLayout />
         </Canvas>
@@ -203,7 +203,7 @@ export default function HomeHero() {
             <span className="text-xs font-medium tracking-widest uppercase text-gray-300">Next-Gen Visual Solutions</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display font-bold tracking-tighter leading-[0.95] mb-8" style={{ perspective: "1000px" }}>
+          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.95] mb-8" style={{ perspective: "1000px" }}>
             <span className="block text-white glow-text hero-title-line origin-bottom">MAKE YOUR</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-signal-amber via-white to-signal-amber-dark hero-title-line origin-bottom py-1">
               BRAND

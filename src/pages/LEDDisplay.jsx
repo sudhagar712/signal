@@ -88,7 +88,7 @@ function LEDShaderMesh() {
 function MiniLEDCanvas() {
   return (
     <div className="w-full h-40 rounded-xl overflow-hidden">
-      <Canvas camera={{ position: [0, 0, 4], fov: 50 }} gl={{ alpha: true }}>
+      <Canvas camera={{ position: [0, 0, 4], fov: 50 }} gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
         <LEDShaderMesh />
       </Canvas>
     </div>
@@ -151,7 +151,7 @@ export default function LEDDisplay() {
 
         {/* Three.js LED canvas — fills entire bg */}
         <div className="absolute inset-0 z-0">
-          <Canvas camera={{ position: [0, 0, 4.5], fov: 60 }} gl={{ alpha: true, antialias: false }}>
+          <Canvas camera={{ position: [0, 0, 4.5], fov: 60 }} gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
             <LEDShaderMesh />
           </Canvas>
         </div>
@@ -315,7 +315,7 @@ export default function LEDDisplay() {
       <section className="relative py-28 overflow-hidden">
         {/* Animated LED canvas background */}
         <div className="absolute inset-0 z-0 opacity-30">
-          <Canvas camera={{ position: [0, 0, 4], fov: 65 }} gl={{ alpha: true, antialias: false }}>
+          <Canvas camera={{ position: [0, 0, 4], fov: 65 }} gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
             <LEDShaderMesh />
           </Canvas>
         </div>

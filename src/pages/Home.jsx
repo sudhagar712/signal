@@ -161,7 +161,7 @@ function Process3DCard({ p, index }) {
     >
       {/* 3D Canvas Background */}
       <div className={`absolute top-0 right-0 w-full h-full z-0 pointer-events-none transform transition-transform duration-1000 ease-out ${isHovered ? 'translate-x-1/4 translate-y-10 scale-110' : 'translate-x-[40%] -translate-y-1/4'}`}>
-        <Canvas camera={{ position: [0, 0, 5], fov: 40 }} gl={{ alpha: true }}>
+        <Canvas camera={{ position: [0, 0, 5], fov: 40 }} gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
           <ambientLight intensity={1} />
           <directionalLight position={[2, 5, 2]} intensity={3} />
           <Float speed={isHovered ? 4 : 2} rotationIntensity={isHovered ? 2 : 1} floatIntensity={isHovered ? 2 : 1}>
@@ -347,7 +347,7 @@ export default function Home() {
         
         {/* 3D Render Canvas */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <Canvas camera={{ position: [0, 0, 8], fov: 50 }} gl={{ alpha: true }}>
+          <Canvas camera={{ position: [0, 0, 8], fov: 50 }} gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
             <ServicesBackground3D />
           </Canvas>
         </div>
@@ -476,6 +476,8 @@ export default function Home() {
            <img 
              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop" 
              alt="Tech core background" 
+             loading="lazy"
+             decoding="async"
              className="cta-bg-image w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale"
            />
         </div>
