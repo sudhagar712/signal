@@ -10,8 +10,8 @@ import gsap from 'gsap';
 function InteractiveRig({ children }) {
   const ref = useRef();
   useFrame((state) => {
-    const targetX = (state.pointer.x * Math.PI) / 8;
-    const targetY = (state.pointer.y * Math.PI) / 8;
+    const targetX = (state.pointer.x * Math.PI) / 10;
+    const targetY = (state.pointer.y * Math.PI) / 10;
     // Smooth lerp towards mouse position
     ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, targetX, 0.05);
     ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, -targetY, 0.05);
@@ -19,46 +19,61 @@ function InteractiveRig({ children }) {
   return <group ref={ref}>{children}</group>;
 }
 
-// ── LED Panel ────────────────────────────────────────────────────────────────
-function LedPanel({ rows = 28, cols = 48, spacing = 0.12 }) {
+// ── Immersive LED Wave Panel ───────────────────────────────────────────────────
+function ImmersiveLedWave({ rows = 50, cols = 90, spacing = 0.16 }) {
   const meshRef = useRef();
   const count = rows * cols;
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const colorObj = useMemo(() => new THREE.Color(), []);
-  
+
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     let i = 0;
+    
+    // Wave animation parameters
+    const cx = cols / 2;
+    const cy = rows / 2;
+
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        const x = (c - cols / 2) * spacing;
-        const y = (r - rows / 2) * spacing;
-        
-        dummy.position.set(x, y, 0);
-        
-        // Complex fluid abstract wave mapped to LED pixels
+        // Base planar positions
+        const x = (c - cx) * spacing;
+        const y = (r - cy) * spacing;
+
         const px = c * 0.1;
         const py = r * 0.1;
-        const wave1 = Math.sin(px * 1.5 + time * 1.5);
-        const wave2 = Math.cos(py * 1.5 - time * 1.0);
-        const wave3 = Math.sin(px * 2 + py * 2 - time * 2);
+
+        // Complex fluid abstract wave mapped to Z axis
+        const wave1 = Math.sin(px * 1.0 + time * 1.5);
+        const wave2 = Math.cos(py * 1.0 - time * 0.8);
+        const wave3 = Math.sin((px + py) * 0.6 - time * 2.0);
         
         const pattern = (wave1 + wave2 + wave3) / 3;
         
+        // Z displacement 
+        const z = pattern * 0.8;
+
+        dummy.position.set(x, y, z);
+
         // Dynamic colors based on pattern
-        if (pattern > 0.3) {
-          colorObj.set('#ffffff'); // White hot spots
-        } else if (pattern > 0) {
-          colorObj.set('#38bdf8'); // Light bright blue
-        } else if (pattern > -0.4) {
+        if (pattern > 0.4) {
+          colorObj.set('#ffffff'); // Hot spots
+        } else if (pattern > 0.1) {
+          colorObj.set('#38bdf8'); // Bright blue
+        } else if (pattern > -0.2) {
           colorObj.set('#0ea5e9'); // Main blue (signal-amber)
+        } else if (pattern > -0.5) {
+          colorObj.set('#0284c7'); // Dark blue
         } else {
-          colorObj.set('#050505'); // Off / dark
+          colorObj.set('#082f49'); // Deep dark
         }
+
+        const scale = 0.4 + Math.max(0, pattern) * 0.6;
+        dummy.scale.setScalar(scale);
         
-        dummy.scale.setScalar(0.4 + Math.max(0, pattern) * 0.6);
+        dummy.lookAt(x, y, z + 1);
         dummy.updateMatrix();
-        
+
         meshRef.current.setMatrixAt(i, dummy.matrix);
         meshRef.current.setColorAt(i, colorObj);
         i++;
@@ -70,37 +85,10 @@ function LedPanel({ rows = 28, cols = 48, spacing = 0.12 }) {
 
   return (
     <group>
-      {/* Panel Housing / Frame */}
-      <mesh position={[0, 0, -0.05]}>
-        <boxGeometry args={[cols * spacing + 0.3, rows * spacing + 0.3, 0.05]} />
-        <meshStandardMaterial color="#050505" roughness={0.5} metalness={0.8} />
-      </mesh>
-      
-      {/* Back Glow ambient effect */}
-      <mesh position={[0, 0, -0.08]}>
-        <planeGeometry args={[cols * spacing * 1.2, rows * spacing * 1.2]} />
-        <meshBasicMaterial color="#0ea5e9" transparent opacity={0.15} />
-      </mesh>
-
-      {/* LED instances */}
       <instancedMesh ref={meshRef} args={[null, null, count]}>
-        <boxGeometry args={[spacing * 0.7, spacing * 0.7, 0.02]} />
-        <meshBasicMaterial toneMapped={false} />
+        <boxGeometry args={[spacing * 0.6, spacing * 0.6, 0.04]} />
+        <meshStandardMaterial toneMapped={false} metalness={0.8} roughness={0.2} />
       </instancedMesh>
-
-      {/* Glass overlay covering the LED matrix for a polished look */}
-      <mesh position={[0, 0, 0.02]}>
-        <boxGeometry args={[cols * spacing + 0.3, rows * spacing + 0.3, 0.02]} />
-        <meshPhysicalMaterial 
-          color="#000000"
-          transparent 
-          opacity={0.3} 
-          roughness={0.1}
-          metalness={0.1}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-        />
-      </mesh>
     </group>
   );
 }
@@ -109,37 +97,34 @@ function LedPanel({ rows = 28, cols = 48, spacing = 0.12 }) {
 function SceneLayout() {
   const { viewport } = useThree();
   const isMobile = viewport.width < 5;
-  
+
   return (
     <InteractiveRig>
-      <ambientLight intensity={1.5} />
-      <directionalLight position={[5, 5, 5]} intensity={2} />
-      
-      {/* Main floating module */}
+      <ambientLight intensity={1} />
+      <directionalLight position={[5, 10, 5]} intensity={2} color="#ffffff" />
+      <directionalLight position={[-5, -10, -5]} intensity={1.5} color="#0ea5e9" />
+      <pointLight position={[0, 0, 5]} intensity={2} color="#38bdf8" distance={10} />
+
+      {/* Main immersive background module */}
       <Float speed={2} rotationIntensity={isMobile ? 0.2 : 0.4} floatIntensity={1}>
-        <group 
-          position={isMobile ? [0, 1.5, -3] : [3, 0.5, -3]} 
-          rotation={isMobile ? [0.1, 0, 0] : [-0.1, -0.3, 0]}
-        >
-          <LedPanel rows={isMobile ? 24 : 32} cols={isMobile ? 36 : 48} />
+        <group position={[0, 0, -5]} rotation={[-0.1, 0, 0]}>
+          <ImmersiveLedWave rows={isMobile ? 60 : 50} cols={isMobile ? 40 : 90} spacing={0.16} />
         </group>
       </Float>
-
-      {/* Secondary module (hidden on mobile) */}
+      
+      {/* Floating particles/cubes in front for extreme depth */}
       {!isMobile && (
-        <Float speed={1.5} rotationIntensity={0.6} floatIntensity={1.5}>
-          <group position={[-5, -1, -5]} rotation={[0.2, 0.4, 0.1]} scale={0.7}>
-            <LedPanel rows={20} cols={32} />
-          </group>
+        <Float speed={3} rotationIntensity={2} floatIntensity={3}>
+           <group position={[-6, 3, -2]} scale={0.6}>
+             <ImmersiveLedWave rows={8} cols={12} spacing={0.2} />
+           </group>
         </Float>
       )}
-
-      {/* Third module */}
       {!isMobile && (
-        <Float speed={2.5} rotationIntensity={0.8} floatIntensity={2}>
-          <group position={[1, -4, -6]} rotation={[-0.3, 0.2, -0.1]} scale={0.5}>
-            <LedPanel rows={16} cols={24} />
-          </group>
+        <Float speed={2.5} rotationIntensity={1.5} floatIntensity={2}>
+           <group position={[6, -2, -1]} scale={0.5} rotation={[0, -0.5, 0]}>
+             <ImmersiveLedWave rows={10} cols={16} spacing={0.15} />
+           </group>
         </Float>
       )}
     </InteractiveRig>
@@ -152,35 +137,35 @@ export default function HomeHero() {
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-    
+
     tl.fromTo(".hero-badge",
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, delay: 0.2 }
     )
-    .fromTo(".hero-title-line",
-      { y: 50, opacity: 0, rotateX: -20 },
-      { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.15 },
-      "-=0.6"
-    )
-    .fromTo(".hero-desc",
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 },
-      "-=0.6"
-    )
-    .fromTo(".hero-btn",
-      { scale: 0.9, opacity: 0, y: 10 },
-      { scale: 1, opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
-      "-=0.8"
-    );
+      .fromTo(".hero-title-line",
+        { y: 50, opacity: 0, rotateX: -20 },
+        { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.15 },
+        "-=0.6"
+      )
+      .fromTo(".hero-desc",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        "-=0.6"
+      )
+      .fromTo(".hero-btn",
+        { scale: 0.9, opacity: 0, y: 10 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
+        "-=0.8"
+      );
   }, { scope: container });
 
   return (
-    <div ref={container} className="relative mb-10 w-full min-h-[100svh] md:min-h-[60svh] lg:min-h-[100svh]  flex items-center justify-center overflow-hidden bg-background pt-24 md:pt-32">
+    <div ref={container} className="relative mb-10 w-full min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-background pt-24 md:pt-32">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas 
+        <Canvas
           camera={{ position: [0, 0, 7], fov: 45 }}
-          gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
           style={{ background: 'transparent' }}
           dpr={[1, 1.5]}
         >
@@ -190,20 +175,20 @@ export default function HomeHero() {
 
       {/* Gradients to blend 3D and UI harmoniously */}
       <div className="absolute inset-x-0 bottom-0 h-[40vh] bg-gradient-to-t from-background to-transparent z-[1] pointer-events-none" />
-      <div className="absolute inset-0 bg-background/30 mix-blend-multiply z-[1] pointer-events-none" />
-      {/* Soft gradient bloom behind text to ensure perfect legibility */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full md:w-[60%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-background/90 via-background/50 to-transparent z-[2] pointer-events-none hidden md:block" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background z-[2] pointer-events-none md:hidden" />
-
-      {/* Content Layer */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col justify-center">
-        <div className="max-w-2xl text-left">
-          <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8">
+      <div className="absolute inset-x-0 top-0 h-[20vh] bg-gradient-to-b from-background to-transparent z-[1] pointer-events-none" />
+      
+      {/* Centered glow behind text to ensure perfect legibility */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] md:w-[80%] h-[150%] md:h-[100%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-background/95 via-background/60 to-transparent z-[2] pointer-events-none" />
+      
+      {/* Content Layer (Centered) */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center">
+        <div className="max-w-4xl flex flex-col items-center">
+          <div className="hero-badge inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8">
             <span className="w-2 h-2 rounded-full bg-signal-amber animate-pulse" />
             <span className="text-xs font-medium tracking-widest uppercase text-gray-300">Next-Gen Visual Solutions</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tighter leading-[0.95] mb-8" style={{ perspective: "1000px" }}>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-bold tracking-tighter leading-[0.95] mb-8" style={{ perspective: "1000px" }}>
             <span className="block text-white glow-text hero-title-line origin-bottom">MAKE YOUR</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-signal-amber via-white to-signal-amber-dark hero-title-line origin-bottom py-1">
               BRAND
@@ -211,20 +196,20 @@ export default function HomeHero() {
             <span className="block text-white hero-title-line origin-bottom">UNMISSABLE</span>
           </h1>
 
-          <p className="hero-desc text-lg md:text-xl text-gray-400 max-w-xl font-light mb-12 leading-relaxed">
+          <p className="hero-desc text-lg md:text-2xl text-gray-400 max-w-2xl font-light mb-12 leading-relaxed">
             High-performance LED displays and visual branding systems designed to capture attention in the real world.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-5 items-center w-full sm:w-auto">
             <Link
               to="/contact"
-              className="hero-btn px-8 py-4 bg-signal-amber text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300 text-base shadow-[0_0_30px_rgba(14,165,233,0.4)] text-center"
+              className="hero-btn w-full sm:w-auto px-10 py-4 bg-signal-amber text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300 text-base shadow-[0_0_30px_rgba(14,165,233,0.4)] text-center flex-1"
             >
               Get a Quote
             </Link>
             <Link
               to="/projects"
-              className="hero-btn group relative overflow-hidden bg-white/5 border border-white/10 px-8 py-4 rounded-full flex items-center justify-center gap-2 text-sm font-semibold tracking-widest uppercase text-white transition-all duration-300 hover:bg-white/10 backdrop-blur-md"
+              className="hero-btn w-full sm:w-auto group relative overflow-hidden bg-white/5 border border-white/10 px-10 py-3 rounded-full flex items-center justify-center gap-2 text-sm font-semibold tracking-widest uppercase text-white transition-all duration-300 hover:bg-white/10 backdrop-blur-md flex-1"
             >
               <span>View Our Work</span>
             </Link>
