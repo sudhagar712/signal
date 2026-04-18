@@ -23,61 +23,10 @@ export default function Contact() {
       />
       <div className="absolute top-[60vh] right-0 w-1/2 h-full bg-gradient-radial from-signal-amber/5 to-transparent opacity-50 z-0 pointer-events-none"></div>
       
-      <div className="container mx-auto px-6 relative z-10 pt-24">
+      <div className="container mx-auto px-6 md:px-30 relative z-10 pt-24">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-          {/* Form */}
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Name</label>
-                  <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors" placeholder="John Doe" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Phone</label>
-                  <input required type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors" placeholder="+91 98765 43210" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Email</label>
-                <input required type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors" placeholder="john@company.com" />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Requirement Type</label>
-                <select required className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors appearance-none">
-                  <option value="" disabled selected>Select a solution</option>
-                  <option value="led">LED Displays</option>
-                  <option value="acp">ACP Elevation</option>
-                  <option value="signage">Sign Boards & Signages</option>
-                  <option value="print">Flex & Print</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Message</label>
-                <textarea required rows="4" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors resize-none" placeholder="Tell us about your project..."></textarea>
-              </div>
-
-              <button 
-                disabled={formState.state === 'loading'}
-                type="submit" 
-                className="w-full flex items-center justify-center space-x-2 bg-signal-amber text-black font-semibold rounded-xl px-6 py-4 hover:bg-white transition-colors duration-300 disabled:opacity-50"
-              >
-                <span>{formState.state === 'loading' ? 'Sending...' : 'Submit Request'}</span>
-                {!formState.state && <Send size={18} />}
-              </button>
-
-              {formState.msg && (
-                <div className="p-4 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl mt-4">
-                  {formState.msg}
-                </div>
-              )}
-            </form>
-          </div>
+       
 
           {/* Contact Details & Process */}
           <div className="space-y-16">
@@ -110,6 +59,60 @@ export default function Contact() {
               </ul>
               <p className="mt-8 font-medium italic text-gray-400 border-t border-white/10 pt-6">No delays. No confusion. <span className="text-white">Just clear action.</span></p>
             </div>
+          </div>
+
+
+             {/* Form */}
+          <div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Name</label>
+                  <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors" placeholder="Enter your name" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Phone</label>
+                  <input required type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors" placeholder="Enter your phone number" />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Email</label>
+                <input required type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors" placeholder="Enter your email" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Requirement Type</label>
+                <select required className="w-full bg-black border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors appearance-none">
+                  <option value="" disabled selected>Select a solution</option>
+                  <option value="led">LED Displays</option>
+                  <option value="acp">ACP Elevation</option>
+                  <option value="signage">Sign Boards & Signages</option>
+                  <option value="print">Flex & Print</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Message</label>
+                <textarea required rows="4" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-signal-amber transition-colors resize-none" placeholder="Tell us about your project..."></textarea>
+              </div>
+
+              <button 
+                disabled={formState.state === 'loading'}
+                type="submit" 
+                className="w-full flex items-center justify-center space-x-2 bg-signal-amber text-black font-semibold rounded-xl px-6 py-4 hover:bg-white transition-colors duration-300 disabled:opacity-50"
+              >
+                <span>{formState.state === 'loading' ? 'Sending...' : 'Submit Request'}</span>
+                {!formState.state && <Send size={18} />}
+              </button>
+
+              {formState.msg && (
+                <div className="p-4 bg-green-500/10 border border-green-500/20 text-green-400 rounded-xl mt-4">
+                  {formState.msg}
+                </div>
+              )}
+            </form>
           </div>
 
         </div>

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HomeHero from '../components/sections/HomeHero';
+import presentationVideo from '../assets/v1.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -257,6 +258,60 @@ function ServicesBackground3D() {
   );
 }
 
+// ── Animated Stats Counter ──────────────────────────────────────────────────
+function StatItem({ endValue, suffix = "", label, delay = 0 }) {
+  const containerRef = useRef();
+  const countRef = useRef();
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      // Counter animation
+      gsap.fromTo(countRef.current,
+        { innerHTML: 0 },
+        {
+          innerHTML: endValue,
+          duration: 2.5,
+          delay: delay,
+          ease: "power3.out",
+          snap: { innerHTML: 1 },
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            bottom: "top 10%",
+            toggleActions: "restart none restart none"
+          }
+        }
+      );
+
+      // Fade-up block animation
+      gsap.fromTo(containerRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1.2, delay: delay, ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            bottom: "top 10%",
+            toggleActions: "restart none restart none"
+          }
+        }
+      );
+    });
+    return () => ctx.revert();
+  }, [endValue, delay]);
+
+  return (
+    <div ref={containerRef} className="flex flex-col items-center justify-center p-8 rounded-[2rem] bg-[#050505] border border-white/5 hover:border-signal-amber/30 hover:bg-white/[0.04] shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden relative group">
+       <div className="absolute inset-0 bg-gradient-to-b from-signal-amber/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+       <h3 className="text-5xl md:text-6xl font-display font-bold text-white mb-2 flex items-center justify-center filter drop-shadow-md">
+        <span ref={countRef}>0</span>
+        <span className="text-signal-amber ml-1">{suffix}</span>
+      </h3>
+      <p className="text-gray-400 text-xs md:text-sm font-medium tracking-widest uppercase text-center mt-2 group-hover:text-white transition-colors">{label}</p>
+    </div>
+  );
+}
+
 export default function Home() {
   // Hero entrance
   useEffect(() => {
@@ -292,6 +347,21 @@ export default function Home() {
       }
     );
 
+    // Video 3D Reveal
+    gsap.fromTo('.video-3d-wrapper',
+      { rotateX: 50, scale: 0.8, opacity: 0, y: 100 },
+      { 
+        rotateX: 0, scale: 1, opacity: 1, y: 0, 
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.video-section',
+          start: 'top 85%',
+          end: 'top 30%',
+          scrub: 1.5
+        }
+      }
+    );
+
     return () => ScrollTrigger.getAll().forEach(st => st.kill());
   }, []);
 
@@ -300,27 +370,30 @@ export default function Home() {
       title: 'LED Displays',
       desc: 'Indoor & Outdoor LED Display Solutions',
       items: ['Sales', 'Installation', 'Service'],
-      link: '/services/led-display',
+      link: '/led-display',
+      image: 'https://images.unsplash.com/photo-1518556737724-e362c03e8740?q=80&w=1077&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       title: 'Branding & Fabrication',
       desc: 'Complete physical brand infrastructure',
       items: ['ACP Elevation', 'Sign Boards', 'Custom Signages', 'Name Boards'],
       link: '/services',
+      image: 'https://images.unsplash.com/photo-1650570296174-a7b5e5dfc848?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       title: 'Print & Promotion',
       desc: 'High-impact print at every scale',
       items: ['Flex Printing', 'Pamphlets', 'Flyers', 'Brochures'],
       link: '/services',
+      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop',
     },
   ];
 
   const whyItems = [
-    { title: 'Strategic Execution', desc: 'Every project is designed for maximum real-world impact.' },
-    { title: 'End-to-End Delivery', desc: 'From concept to installation to maintenance.' },
-    { title: 'Performance Driven', desc: 'Built for high traffic, harsh weather, and constant visibility.' },
-    { title: 'Reliable Timelines', desc: 'Execution you can actually depend on.' },
+    { title: 'Strategic Execution', desc: 'Every project is designed for maximum real-world impact.', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop' },
+    { title: 'End-to-End Delivery', desc: 'From concept to installation to maintenance.', image: 'https://images.unsplash.com/photo-1614189313880-13b09111b4de?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { title: 'Performance Driven', desc: 'Built for high traffic, harsh weather, and constant visibility.', image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop' },
+    { title: 'Reliable Timelines', desc: 'Execution you can actually depend on.', image: 'https://images.unsplash.com/photo-1501139083538-0139583c060f?q=80&w=1000&auto=format&fit=crop' },
   ];
 
   const process = [
@@ -339,11 +412,79 @@ export default function Home() {
 <div className="">
   <HomeHero />
 </div>
+
+
+
+
+
+
+
+{/* ── IMMERSIVE VIDEO EXPERIENCE ───────────────── */}
+      <section className="video-section relative py-32 bg-[#020202] overflow-hidden z-20 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        
+        {/* Glow ambient background */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-signal-amber/10 via-[#020202] to-[#020202] pointer-events-none z-0" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <FadeUp className="flex flex-col items-center text-center mb-20">
+            <span className="text-xs font-bold tracking-[0.2em] text-signal-amber uppercase block mb-6 border border-signal-amber/20 bg-signal-amber/10 px-5 py-2.5 rounded-full shadow-[0_0_20px_rgba(14,165,233,0.3)]">
+              Visual Excellence
+            </span>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tighter text-white drop-shadow-xl">
+              Watch Innovation <br className="hidden md:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-signal-amber to-[#ffffff]">In Motion</span>
+            </h2>
+          </FadeUp>
+
+          <div className="relative max-w-5xl mx-auto w-full" style={{ perspective: '2000px' }}>
+            {/* The 3D rotating container */}
+            <div className="video-3d-wrapper relative w-full aspect-video md:aspect-[21/9] rounded-3xl md:rounded-[2.5rem] overflow-hidden border border-white/20 bg-[#050505] shadow-[0_0_80px_rgba(14,165,233,0.15)_inset,0_50px_100px_rgba(0,0,0,0.8)] z-10 group" style={{ transformStyle: 'preserve-3d' }}>
+              
+              <video 
+                src={presentationVideo} 
+                className="w-full h-full object-cover rounded-3xl md:rounded-[2.5rem] opacity-90 group-hover:opacity-100 transition-opacity duration-1000"
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+              />
+              
+              {/* Premium Glassmorphism Reflections */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 pointer-events-none rounded-3xl md:rounded-[2.5rem] z-20 mix-blend-screen" />
+              
+             
+            </div>
+            
+            {/* Base platform shadow/glow to firmly ground the 3D element */}
+            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-[90%] h-20 bg-signal-amber/30 blur-[60px] rounded-[100%] z-0 pointer-events-none transition-opacity duration-1000" />
+          </div>
+
+          {/* Stats Section exactly below video */}
+          <div className="relative max-w-6xl mx-auto w-full mt-24">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <StatItem endValue={10} suffix="+" label="Years Experience" delay={0} />
+              <StatItem endValue={500} suffix="+" label="Projects Delivered" delay={0.1} />
+              <StatItem endValue={50} suffix="+" label="Cities Covered" delay={0.2} />
+              <StatItem endValue={1} suffix="M+" label="Modules Installed" delay={0.3} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+
+
+
+
+
     
 
 
       {/* ── WHAT WE DO ────────────────────────────────── */}
-      <section className="services-section relative rounded-3xl z-20 py-32 bg-background overflow-hidden border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+      <section className="services-section md:px-30 relative rounded-3xl z-20 py-32 bg-background overflow-hidden border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
         
         {/* 3D Render Canvas */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -361,7 +502,7 @@ export default function Home() {
             <span className="text-xs font-bold tracking-[0.2em] text-signal-amber uppercase block mb-4">What We Do</span>
             <h2 className="text-5xl md:text-6xl lg:text-8xl font-display font-bold tracking-tighter drop-shadow-xl">
               Visibility Solutions.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 italic drop-shadow-md">Built to Perform.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500 drop-shadow-md">Built to Perform.</span>
             </h2>
           </FadeUp>
 
@@ -370,21 +511,30 @@ export default function Home() {
               <div key={i} className="service-card">
                 <Link
                   to={s.link}
-                  className="group relative flex flex-col h-full bg-[#080808]/40 backdrop-blur-xl border border-white/10 p-10 sm:p-12 rounded-[2rem] overflow-hidden hover:border-signal-amber/40 hover:bg-white/[0.04] transition-all duration-700 hover:-translate-y-3 shadow-2xl hover:shadow-[0_20px_60px_rgba(14,165,233,0.15)]"
+                  className="group relative flex flex-col h-full bg-[#080808] border border-white/10 rounded-[2rem] overflow-hidden hover:border-signal-amber/40 transition-all duration-700 hover:-translate-y-3 shadow-2xl hover:shadow-[0_20px_60px_rgba(14,165,233,0.15)]"
                 >
-                  {/* Subtle inner hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-signal-amber/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0" />
+                  {/* Background Image Layer */}
+                  <div className="absolute inset-0 z-0">
+                    <img 
+                      src={s.image} 
+                      alt={s.title} 
+                      className="w-full h-[60%] object-cover opacity-40 group-hover:opacity-70 transition-all duration-1000 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    {/* Dark gradient to seamlessly blend the image into the card body */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-[#080808]/90 to-[#080808] group-hover:via-[#080808]/70 transition-all duration-700" />
+                  </div>
                   
-                  <div className="relative z-10 flex flex-col h-full">
+                  <div className="relative z-10 flex flex-col h-full p-10 sm:p-12">
                     {/* Glowing Accent Ring */}
-                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-signal-amber/30 to-transparent rounded-full blur-2xl group-hover:bg-signal-amber/50 transition-colors duration-700 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-signal-amber/30 to-transparent rounded-full blur-2xl group-hover:from-signal-amber/60 transition-colors duration-700 pointer-events-none -translate-y-1/2 translate-x-1/2" />
                     
-                    <h3 className="text-3xl lg:text-4xl font-display font-bold mb-4 group-hover:text-signal-amber transition-colors duration-500 drop-shadow-md text-white">{s.title}</h3>
-                    <p className="text-gray-400 text-base lg:text-lg font-light mb-12 leading-relaxed group-hover:text-white/90 transition-colors duration-500">{s.desc}</p>
+                    <h3 className="text-3xl lg:text-4xl font-display font-bold mb-4 group-hover:text-signal-amber transition-colors duration-500 drop-shadow-lg text-white">{s.title}</h3>
+                    <p className="text-gray-300 text-base lg:text-lg font-light mb-12 leading-relaxed group-hover:text-white transition-colors duration-500 drop-shadow-md">{s.desc}</p>
                     
                     <ul className="mt-auto space-y-5 relative z-10">
                       {s.items.map((item) => (
-                        <li key={item} className="flex items-center gap-4 text-sm lg:text-base text-gray-500 font-medium group-hover:text-gray-300 transition-colors duration-500">
+                        <li key={item} className="flex items-center gap-4 text-sm lg:text-base text-gray-400 font-medium group-hover:text-gray-200 transition-colors duration-500">
                           <span className="w-1.5 h-1.5 rounded-full bg-signal-amber flex-shrink-0 group-hover:scale-[2] transition-transform duration-500 shadow-[0_0_10px_rgba(14,165,233,0.8)]" />
                           {item}
                         </li>
@@ -402,29 +552,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── WHY SIGNAL ───────────────────────────────── */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-hero-glow opacity-20 pointer-events-none" />
-        <div className="container mx-auto px-6 relative z-10">
-          <FadeUp className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-display font-bold">
-              We Don't Install.{' '}
-              <span className="text-signal-amber glow-text">We Engineer Visibility.</span>
-            </h2>
-          </FadeUp>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyItems.map((item, i) => (
-              <FadeUp key={i}>
-                <div className="p-8 border border-white/8 rounded-2xl bg-gradient-to-b from-white/[0.03] to-transparent hover:border-signal-amber/30 transition-colors duration-500 h-full">
-                  <div className="w-10 h-10 rounded-full bg-signal-amber/10 border border-signal-amber/20 flex items-center justify-center text-signal-amber font-mono text-xs font-bold mb-6">
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <h3 className="text-lg font-display font-semibold mb-3">{item.title}</h3>
-                  <p className="text-gray-400 text-sm font-light leading-relaxed">{item.desc}</p>
-                </div>
-              </FadeUp>
-            ))}
+
+
+{/* ── WHY SIGNAL (Premium Bento Grid) ─────────────────────────── */}
+      <section className="py-32 md:px-25 relative overflow-hidden bg-[#020202]">
+        
+        {/* Abstract Light Orbs */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-signal-amber/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
+            
+            {/* Sticky Header Side */}
+            <div className="lg:w-1/3">
+              <div className="sticky top-32">
+                <FadeUp>
+                  <span className="text-sm font-bold tracking-[0.2em] text-signal-amber uppercase flex items-center gap-4 mb-4">
+                    <div className="h-[1px] w-8 bg-signal-amber" /> The Signal Advantage
+                  </span>
+                  <h2 className="text-5xl md:text-6xl font-display font-medium leading-[1.1] text-white">
+                    We Don't Just Install.<br />
+                    <span className="text-gray-500 mt-2 block">We Engineer Visibility.</span>
+                  </h2>
+                </FadeUp>
+              </div>
+            </div>
+
+            {/* Scrolling Cards Side */}
+            <div className="lg:w-2/3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {whyItems.map((item, i) => {
+                  const isLarge = i === 0 || i === 3; 
+                  return (
+                    <FadeUp key={i} className={isLarge ? "sm:col-span-2" : "col-span-1"}>
+                      <div className={`relative h-full flex flex-col justify-end p-10 rounded-[2rem] bg-[#080808] border border-white/5 overflow-hidden group hover:border-signal-amber/30 transition-all duration-700 hover:-translate-y-2 shadow-xl hover:shadow-[0_20px_50px_rgba(14,165,233,0.05)] ${isLarge ? 'min-h-[350px]' : 'min-h-[300px]'}`}>
+                        
+                        {/* Background Image */}
+                        <div className="absolute inset-0 z-0">
+                          <img 
+                            src={item.image} 
+                            alt={item.title} 
+                            className="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-1000 group-hover:scale-110"
+                            loading="lazy"
+                          />
+                          {/* Bento Dark Gradient Fade */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/80 to-transparent" />
+                        </div>
+
+                        {/* Huge Number Background */}
+                        <div className="absolute -top-6 right-0 text-[180px] font-display font-bold text-white/[0.04] group-hover:text-signal-amber/[0.08] transition-colors duration-700 pointer-events-none select-none leading-none tracking-tighter z-10">
+                           0{i + 1}
+                        </div>
+                        
+                        {/* Hover Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-signal-amber/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10" />
+
+                        <div className="relative z-20 mt-auto">
+                          {/* Accent Line */}
+                          <div className="w-8 h-1 bg-white/20 group-hover:w-16 group-hover:bg-signal-amber transition-all duration-700 ease-out mb-6 rounded-full drop-shadow-md" />
+                          <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 drop-shadow-lg group-hover:translate-x-2 transition-transform duration-500 ease-out">{item.title}</h3>
+                          <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed group-hover:text-white transition-colors duration-500 max-w-sm drop-shadow-md">{item.desc}</p>
+                        </div>
+
+                      </div>
+                    </FadeUp>
+                  );
+                })}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
