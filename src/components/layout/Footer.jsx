@@ -3,8 +3,19 @@ import logo from '../../assets/logo.png';
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-white/5 pt-20 px-3 md:px-10 pb-10">
-      <div className="container mx-auto px-6">
+    <footer className="relative bg-[#020202] border-t border-white/5 pt-20 px-3 md:px-10 pb-10 overflow-hidden">
+      
+      {/* Premium Background Design */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+        {/* Glow Effects */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[150%] bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-signal-amber/10 via-transparent to-transparent" />
+        <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-[#0EA5E9]/10 blur-[100px] rounded-full" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-white/5 blur-[120px] rounded-full" />
+        {/* Subtle Grid */}
+        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_100%,#000_10%,transparent_100%)]" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="inline-block mb-6">

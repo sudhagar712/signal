@@ -28,16 +28,16 @@ function FadeUp({ children, className = '' }) {
 // ── 3D Process Content-Related Icons ───────────────────────────────────────────
 function ProcessIconShape({ type, isHovered }) {
   const ref = useRef();
-  
+
   useFrame((state, delta) => {
     const speed = isHovered ? 2.5 : 0.5;
-    if (type !== '03') { 
+    if (type !== '03') {
       ref.current.rotation.x += delta * speed * 0.3;
       ref.current.rotation.y += delta * speed * 0.4;
     } else {
       ref.current.rotation.y += delta * speed * 0.4;
     }
-    
+
     const targetScale = isHovered ? 1.3 : 1.0;
     ref.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
   });
@@ -91,16 +91,16 @@ function ProcessIconShape({ type, isHovered }) {
       {/* 03: EXECUTE - LED Hardware Grid Matrix */}
       {type === '03' && (
         <group rotation={[Math.PI / 8, -Math.PI / 8, 0]}>
-          {[-0.5, 0, 0.5].map((x, i) => 
+          {[-0.5, 0, 0.5].map((x, i) =>
             [-0.5, 0, 0.5].map((y, j) => (
               <mesh position={[x * 1.2, y * 1.2, 0]} key={`${i}-${j}`}>
                 <boxGeometry args={[0.9, 0.9, 0.15]} />
-                <meshStandardMaterial 
-                  color={isHovered && (i+j)%2===0 ? "#ffffff" : "#0EA5E9"} 
-                  roughness={0.1} 
+                <meshStandardMaterial
+                  color={isHovered && (i + j) % 2 === 0 ? "#ffffff" : "#0EA5E9"}
+                  roughness={0.1}
                   metalness={0.8}
-                  transparent 
-                  opacity={isHovered ? 0.9 : 0.3} 
+                  transparent
+                  opacity={isHovered ? 0.9 : 0.3}
                 />
               </mesh>
             ))
@@ -113,17 +113,17 @@ function ProcessIconShape({ type, isHovered }) {
         <group>
           <mesh>
             <boxGeometry args={[2.0, 1.2, 0.1]} />
-            <meshPhysicalMaterial 
-              color="#020202" 
-              metalness={0.9} 
-              roughness={0.1} 
-              clearcoat={1} 
+            <meshPhysicalMaterial
+              color="#020202"
+              metalness={0.9}
+              roughness={0.1}
+              clearcoat={1}
             />
           </mesh>
           <mesh position={[0, 0, 0.06]}>
             <planeGeometry args={[1.9, 1.1]} />
-            <meshBasicMaterial 
-              color={isHovered ? "#ffffff" : "#0EA5E9"} 
+            <meshBasicMaterial
+              color={isHovered ? "#ffffff" : "#0EA5E9"}
               transparent
               opacity={isHovered ? 0.9 : 0.25}
             />
@@ -138,22 +138,22 @@ function ProcessIconShape({ type, isHovered }) {
 function Process3DCard({ p, index }) {
   const cardRef = useRef();
   const [isHovered, setIsHovered] = useState(false);
-  
+
   useEffect(() => {
     gsap.fromTo(cardRef.current,
       { y: 80, opacity: 0, rotateY: 15, scale: 0.9 },
-      { 
-        y: 0, opacity: 1, rotateY: 0, scale: 1, 
-        duration: 1.2, 
+      {
+        y: 0, opacity: 1, rotateY: 0, scale: 1,
+        duration: 1.2,
         ease: 'power3.out',
         scrollTrigger: { trigger: cardRef.current, start: 'top 85%' },
-        delay: index * 0.15 
+        delay: index * 0.15
       }
     );
   }, [index]);
 
   return (
-    <div 
+    <div
       ref={cardRef}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -179,7 +179,7 @@ function Process3DCard({ p, index }) {
           STEP {p.step}
         </span>
       </div>
-      
+
       <div className="relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
         <h3 className="text-3xl font-display font-bold text-white mb-2">{p.label}</h3>
         <div className="overflow-hidden opacity-0 h-0 group-hover:h-[80px] sm:group-hover:h-[60px] md:group-hover:h-[100px] lg:group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 ease-out pt-2">
@@ -189,8 +189,8 @@ function Process3DCard({ p, index }) {
         </div>
       </div>
 
-       {/* Premium shiny line at bottom */}
-       <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-signal-amber to-white group-hover:w-full transition-all duration-700 ease-in-out" />
+      {/* Premium shiny line at bottom */}
+      <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-signal-amber to-white group-hover:w-full transition-all duration-700 ease-in-out" />
     </div>
   );
 }
@@ -198,7 +198,7 @@ function Process3DCard({ p, index }) {
 // ── 3D Services Background ────────────────────────────────────────────────
 function ServicesBackground3D() {
   const groupRef = useRef();
-  
+
   useFrame((state, delta) => {
     groupRef.current.rotation.y -= delta * 0.05;
     groupRef.current.rotation.x += delta * 0.03;
@@ -208,15 +208,15 @@ function ServicesBackground3D() {
     <group ref={groupRef}>
       <ambientLight intensity={1} />
       <directionalLight position={[5, 10, 5]} intensity={2} />
-      
+
       {/* Central distorted tech orb */}
       <Sphere args={[3, 64, 64]} position={[4, 0, -3]}>
-        <MeshDistortMaterial 
-          color="#0EA5E9" 
-          distort={0.4} 
-          speed={1.5} 
-          roughness={0.2} 
-          metalness={0.9} 
+        <MeshDistortMaterial
+          color="#0EA5E9"
+          distort={0.4}
+          speed={1.5}
+          roughness={0.2}
+          metalness={0.9}
           wireframe={true}
           transparent
           opacity={0.15}
@@ -225,12 +225,12 @@ function ServicesBackground3D() {
 
       {/* Deep secondary orb */}
       <Sphere args={[2, 32, 32]} position={[-4, -2, -6]}>
-        <MeshDistortMaterial 
-          color="#ffffff" 
-          distort={0.2} 
-          speed={1.0} 
-          roughness={0.5} 
-          metalness={0.1} 
+        <MeshDistortMaterial
+          color="#ffffff"
+          distort={0.2}
+          speed={1.0}
+          roughness={0.5}
+          metalness={0.1}
           wireframe={true}
           transparent
           opacity={0.05}
@@ -238,21 +238,21 @@ function ServicesBackground3D() {
       </Sphere>
 
       {/* Floating particles/data points */}
-      <Sparkles 
-        count={300} 
-        scale={20} 
-        size={2} 
-        speed={0.4} 
-        opacity={0.3} 
-        color="#0EA5E9" 
+      <Sparkles
+        count={300}
+        scale={20}
+        size={2}
+        speed={0.4}
+        opacity={0.3}
+        color="#0EA5E9"
       />
-      <Sparkles 
-        count={150} 
-        scale={15} 
-        size={4} 
-        speed={0.2} 
-        opacity={0.15} 
-        color="#ffffff" 
+      <Sparkles
+        count={150}
+        scale={15}
+        size={4}
+        speed={0.2}
+        opacity={0.15}
+        color="#ffffff"
       />
     </group>
   );
@@ -301,13 +301,17 @@ function StatItem({ endValue, suffix = "", label, delay = 0 }) {
   }, [endValue, delay]);
 
   return (
-    <div ref={containerRef} className="flex flex-col items-center justify-center p-8 rounded-[2rem] bg-[#050505] border border-white/5 hover:border-signal-amber/30 hover:bg-white/[0.04] shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden relative group">
-       <div className="absolute inset-0 bg-gradient-to-b from-signal-amber/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-       <h3 className="text-5xl md:text-6xl font-display font-bold text-white mb-2 flex items-center justify-center filter drop-shadow-md">
+    <div ref={containerRef} className="flex flex-col items-center justify-center p-8 rounded-[2rem] bg-[#050505] border border-white/5 hover:border-[#0EA5E9]/50 hover:bg-white/[0.04] shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-500 overflow-hidden relative group">
+      {/* Blinking blue shadow */}
+      <div className="absolute inset-0 rounded-[2rem] shadow-[0_0_20px_rgba(14,165,233,0.3)_inset,0_0_20px_rgba(14,165,233,0.3)] animate-pulse pointer-events-none" />
+
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0EA5E9]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+      <h3 className="text-5xl md:text-6xl font-display font-bold text-white mb-2 flex items-center justify-center filter drop-shadow-md relative z-10">
         <span ref={countRef}>0</span>
-        <span className="text-signal-amber ml-1">{suffix}</span>
+        <span className="text-[#0EA5E9] ml-1">{suffix}</span>
       </h3>
-      <p className="text-gray-400 text-xs md:text-sm font-medium tracking-widest uppercase text-center mt-2 group-hover:text-white transition-colors">{label}</p>
+      <p className="text-gray-400 text-xs md:text-sm font-medium tracking-widest uppercase text-center mt-2 group-hover:text-white transition-colors relative z-10">{label}</p>
     </div>
   );
 }
@@ -338,10 +342,10 @@ export default function Home() {
     // Services cards 3D stagger
     gsap.fromTo('.service-card',
       { y: 100, opacity: 0, rotateX: 10, scale: 0.95 },
-      { 
+      {
         y: 0, opacity: 1, rotateX: 0, scale: 1,
-        duration: 1.2, 
-        stagger: 0.15, 
+        duration: 1.2,
+        stagger: 0.15,
         ease: 'power4.out',
         scrollTrigger: { trigger: '.services-section', start: 'top 75%' }
       }
@@ -350,8 +354,8 @@ export default function Home() {
     // Video 3D Reveal
     gsap.fromTo('.video-3d-wrapper',
       { rotateX: 50, scale: 0.8, opacity: 0, y: 100 },
-      { 
-        rotateX: 0, scale: 1, opacity: 1, y: 0, 
+      {
+        rotateX: 0, scale: 1, opacity: 1, y: 0,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: '.video-section',
@@ -409,9 +413,9 @@ export default function Home() {
     <div className="bg-background">
 
       {/* ── HERO ─────────────────────────────────────── */}
-<div className="">
-  <HomeHero />
-</div>
+      <div className="">
+        <HomeHero />
+      </div>
 
 
 
@@ -419,12 +423,15 @@ export default function Home() {
 
 
 
-{/* ── IMMERSIVE VIDEO EXPERIENCE ───────────────── */}
+      {/* ── IMMERSIVE VIDEO EXPERIENCE ───────────────── */}
       <section className="video-section relative py-32 bg-[#020202] overflow-hidden z-20 border-t border-white/5 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        
+
+        {/* Animated Background Grid Pattern */}
+        <div className="absolute inset-0 z-0 opacity-30 bg-[linear-gradient(rgba(14,165,233,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.15)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] animate-pulse pointer-events-none" />
+
         {/* Glow ambient background */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-signal-amber/10 via-[#020202] to-[#020202] pointer-events-none z-0" />
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <FadeUp className="flex flex-col items-center text-center mb-20">
             <span className="text-xs font-bold tracking-[0.2em] text-signal-amber uppercase block mb-6 border border-signal-amber/20 bg-signal-amber/10 px-5 py-2.5 rounded-full shadow-[0_0_20px_rgba(14,165,233,0.3)]">
@@ -439,22 +446,22 @@ export default function Home() {
           <div className="relative max-w-5xl mx-auto w-full" style={{ perspective: '2000px' }}>
             {/* The 3D rotating container */}
             <div className="video-3d-wrapper relative w-full aspect-video md:aspect-[21/9] rounded-3xl md:rounded-[2.5rem] overflow-hidden border border-white/20 bg-[#050505] shadow-[0_0_80px_rgba(14,165,233,0.15)_inset,0_50px_100px_rgba(0,0,0,0.8)] z-10 group" style={{ transformStyle: 'preserve-3d' }}>
-              
-              <video 
-                src={presentationVideo} 
+
+              <video
+                src={presentationVideo}
                 className="w-full h-full object-cover rounded-3xl md:rounded-[2.5rem] opacity-90 group-hover:opacity-100 transition-opacity duration-1000"
-                autoPlay 
-                muted 
-                loop 
+                autoPlay
+                muted
+                loop
                 playsInline
               />
-              
+
               {/* Premium Glassmorphism Reflections */}
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 pointer-events-none rounded-3xl md:rounded-[2.5rem] z-20 mix-blend-screen" />
-              
-             
+
+
             </div>
-            
+
             {/* Base platform shadow/glow to firmly ground the 3D element */}
             <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-[90%] h-20 bg-signal-amber/30 blur-[60px] rounded-[100%] z-0 pointer-events-none transition-opacity duration-1000" />
           </div>
@@ -480,12 +487,12 @@ export default function Home() {
 
 
 
-    
+
 
 
       {/* ── WHAT WE DO ────────────────────────────────── */}
       <section className="services-section md:px-30 relative rounded-3xl z-20 py-32 bg-background overflow-hidden border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        
+
         {/* 3D Render Canvas */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Canvas camera={{ position: [0, 0, 8], fov: 50 }} gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
@@ -515,23 +522,23 @@ export default function Home() {
                 >
                   {/* Background Image Layer */}
                   <div className="absolute inset-0 z-0">
-                    <img 
-                      src={s.image} 
-                      alt={s.title} 
+                    <img
+                      src={s.image}
+                      alt={s.title}
                       className="w-full h-[60%] object-cover opacity-40 group-hover:opacity-70 transition-all duration-1000 group-hover:scale-110"
                       loading="lazy"
                     />
                     {/* Dark gradient to seamlessly blend the image into the card body */}
                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-[#080808]/90 to-[#080808] group-hover:via-[#080808]/70 transition-all duration-700" />
                   </div>
-                  
+
                   <div className="relative z-10 flex flex-col h-full p-10 sm:p-12">
                     {/* Glowing Accent Ring */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-signal-amber/30 to-transparent rounded-full blur-2xl group-hover:from-signal-amber/60 transition-colors duration-700 pointer-events-none -translate-y-1/2 translate-x-1/2" />
-                    
+
                     <h3 className="text-3xl lg:text-4xl font-display font-bold mb-4 group-hover:text-signal-amber transition-colors duration-500 drop-shadow-lg text-white">{s.title}</h3>
                     <p className="text-gray-300 text-base lg:text-lg font-light mb-12 leading-relaxed group-hover:text-white transition-colors duration-500 drop-shadow-md">{s.desc}</p>
-                    
+
                     <ul className="mt-auto space-y-5 relative z-10">
                       {s.items.map((item) => (
                         <li key={item} className="flex items-center gap-4 text-sm lg:text-base text-gray-400 font-medium group-hover:text-gray-200 transition-colors duration-500">
@@ -540,7 +547,7 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    
+
                     <div className="mt-12 pt-6 border-t border-white/10 text-signal-amber text-xs font-bold uppercase tracking-[0.15em] flex items-center gap-3 group-hover:gap-5 transition-all duration-500">
                       Explore Solution <span className="group-hover:translate-x-1 transition-transform duration-500 text-lg leading-none">→</span>
                     </div>
@@ -555,16 +562,16 @@ export default function Home() {
 
 
 
-{/* ── WHY SIGNAL (Premium Bento Grid) ─────────────────────────── */}
+      {/* ── WHY SIGNAL (Premium Bento Grid) ─────────────────────────── */}
       <section className="py-32 md:px-25 relative overflow-hidden bg-[#020202]">
-        
+
         {/* Abstract Light Orbs */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-signal-amber/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
-            
+
             {/* Sticky Header Side */}
             <div className="lg:w-1/3">
               <div className="sticky top-32">
@@ -584,16 +591,16 @@ export default function Home() {
             <div className="lg:w-2/3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {whyItems.map((item, i) => {
-                  const isLarge = i === 0 || i === 3; 
+                  const isLarge = i === 0 || i === 3;
                   return (
                     <FadeUp key={i} className={isLarge ? "sm:col-span-2" : "col-span-1"}>
                       <div className={`relative h-full flex flex-col justify-end p-10 rounded-[2rem] bg-[#080808] border border-white/5 overflow-hidden group hover:border-signal-amber/30 transition-all duration-700 hover:-translate-y-2 shadow-xl hover:shadow-[0_20px_50px_rgba(14,165,233,0.05)] ${isLarge ? 'min-h-[350px]' : 'min-h-[300px]'}`}>
-                        
+
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0">
-                          <img 
-                            src={item.image} 
-                            alt={item.title} 
+                          <img
+                            src={item.image}
+                            alt={item.title}
                             className="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-all duration-1000 group-hover:scale-110"
                             loading="lazy"
                           />
@@ -603,9 +610,9 @@ export default function Home() {
 
                         {/* Huge Number Background */}
                         <div className="absolute -top-6 right-0 text-[180px] font-display font-bold text-white/[0.04] group-hover:text-signal-amber/[0.08] transition-colors duration-700 pointer-events-none select-none leading-none tracking-tighter z-10">
-                           0{i + 1}
+                          0{i + 1}
                         </div>
-                        
+
                         {/* Hover Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-signal-amber/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10" />
 
@@ -643,7 +650,7 @@ export default function Home() {
       <section className="py-24 md:py-32 border-t border-white/5 relative bg-[#050505] overflow-hidden">
         {/* Subtle premium environment glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-signal-amber/5 via-background to-background pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
             <FadeUp className="max-w-2xl">
@@ -671,18 +678,18 @@ export default function Home() {
       <section className="cta-section py-40 relative overflow-hidden text-center bg-[#050505]">
         {/* Parallax Background Image */}
         <div className="absolute inset-x-0 -top-[30%] w-full h-[160%] z-0 pointer-events-none">
-           <img 
-             src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop" 
-             alt="Tech core background" 
-             loading="lazy"
-             decoding="async"
-             className="cta-bg-image w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale"
-           />
+          <img
+            src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop"
+            alt="Tech core background"
+            loading="lazy"
+            decoding="async"
+            className="cta-bg-image w-full h-full object-cover opacity-60 mix-blend-luminosity grayscale"
+          />
         </div>
 
         {/* Blue color overlay */}
         <div className="absolute inset-0 bg-[#0EA5E9]/80 mix-blend-multiply pointer-events-none z-[1]" />
-        
+
         {/* Gradient fades for seamless integration with previous & footer sections */}
         <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-[#050505] pointer-events-none z-[2]" />
 

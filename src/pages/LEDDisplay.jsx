@@ -125,24 +125,39 @@ export default function LEDDisplay() {
   }, []);
 
   const features = [
-    { num: '01', title: 'Ultra-High Brightness',  desc: 'Cuts through direct sunlight — up to 10,000 nits for outdoor clarity at any time of day.' },
-    { num: '02', title: 'Weather-Resistant IP65+', desc: 'Sealed against rain, dust, salt, and extreme temperature fluctuations.' },
-    { num: '03', title: 'Seamless Display Quality', desc: 'Pixel-perfect imagery with ultra-fine pitch panels and no visible bezels.' },
-    { num: '04', title: 'Energy-Efficient Tech',   desc: 'Advanced LED diode arrays delivering maximum nits at minimum wattage.' },
-    { num: '05', title: 'Custom Configurations',   desc: 'Any size, shape, or curve — fabricated and installed to your exact spec.' },
+    { num: '01', title: 'Ultra-High Brightness',  desc: 'Cuts through direct sunlight — up to 10,000 nits for outdoor clarity at any time of day.', image: 'https://images.pexels.com/photos/28940484/pexels-photo-28940484.jpeg' },
+    { num: '02', title: 'Weather-Resistant', desc: 'Sealed against rain, dust, salt, and extreme temperature fluctuations.', image: 'https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?q=80&w=800&auto=format&fit=crop' },
+    { num: '03', title: 'Seamless Quality', desc: 'Pixel-perfect imagery with ultra-fine pitch panels and no visible bezels.', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop' },
+    { num: '04', title: 'Energy-Efficient',   desc: 'Advanced LED diode arrays delivering maximum nits at minimum wattage.', image: 'https://images.unsplash.com/photo-1518556737724-e362c03e8740?q=80&w=800&auto=format&fit=crop' },
+    { num: '05', title: 'Custom Configurations',   desc: 'Any size, shape, or curve — fabricated and installed to your exact spec.', image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1000&auto=format&fit=crop' },
   ];
 
   const useCases = [
-    { title: 'Retail Storefronts',    desc: 'Drive footfall with dynamic, eye-catching displays at entrances and windows.' },
-    { title: 'Shopping Complexes',    desc: 'Wayfinding, advertising, and event messaging at scale.' },
-    { title: 'Highway Displays',      desc: 'High-brightness, large-format screens for maximum road visibility.' },
-    { title: 'Corporate Spaces',      desc: 'Lobbies, boardrooms, and reception areas — communicate with clarity.' },
-    { title: 'Events & Exhibitions',  desc: 'Modular, rapid-deploy systems for any event footprint.' },
-    { title: 'Control Rooms',         desc: 'Fine-pitch video walls for mission-critical, 24/7 monitoring environments.' },
+    { title: 'Retail Storefronts',    desc: 'Drive footfall with dynamic, eye-catching displays at entrances and windows.', image: 'https://images.pexels.com/photos/7317346/pexels-photo-7317346.jpeg' },
+    { title: 'Shopping Complexes',    desc: 'Wayfinding, advertising, and event messaging at scale.', image: 'https://images.pexels.com/photos/35243843/pexels-photo-35243843.jpeg' },
+    { title: 'Highway Displays',      desc: 'High-brightness, large-format screens for maximum road visibility.', image: 'https://images.pexels.com/photos/11601940/pexels-photo-11601940.jpeg' },
+    { title: 'Corporate Spaces',      desc: 'Lobbies, boardrooms, and reception areas — communicate with clarity.', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Events & Exhibitions',  desc: 'Modular, rapid-deploy systems for any event footprint.', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Control Rooms',         desc: 'Fine-pitch video walls for mission-critical, 24/7 monitoring environments.', image: 'https://images.pexels.com/photos/19452352/pexels-photo-19452352.jpeg' },
   ];
 
   return (
-    <div className="bg-background min-h-screen overflow-hidden">
+    <div className="bg-[#050505] min-h-screen overflow-hidden relative">
+
+      {/* ══════════════════════════════════════════════
+          GLOBAL PREMIUM CHECK PATTERN BACKGROUND
+      ═══════════════════════════════════════════════ */}
+      <div 
+        className="fixed inset-0 z-0 pointer-events-none opacity-30"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)'
+        }}
+      />
 
       {/* ══════════════════════════════════════════════
           HERO — full-screen LED canvas + text
@@ -182,8 +197,8 @@ export default function LEDDisplay() {
                 <span className="text-xs text-signal-amber font-semibold tracking-widest uppercase">LED Display Systems</span>
               </div>
 
-              <h1 className="led-reveal text-5xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tighter leading-[0.9] mb-6">
-                LED Displays<br />
+              <h1 className="led-reveal text-5xl md:text-7xl lg:text-7xl font-display font-extrabold tracking-tighter leading-[0.9] mb-6">
+                LED Displays
                 That
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-signal-amber to-yellow-200 glow-text">
                   {' '}Demand{'\n'}Attention.
@@ -233,46 +248,92 @@ export default function LEDDisplay() {
       {/* ══════════════════════════════════════════════
           FEATURES
       ═══════════════════════════════════════════════ */}
-      <section className="py-32 border-t border-white/5">
-        <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+      {/* ══════════════════════════════════════════════
+          FEATURES (Premium Bento Box)
+      ═══════════════════════════════════════════════ */}
+      <section className="py-32 border-t border-white/5 relative overflow-hidden bg-[#020202]">
+        {/* Soft radial glow in background */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-signal-amber/10 to-transparent blur-3xl pointer-events-none z-0" />
+
+        <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
 
           <div className="led-reveal flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
             <div>
-              <span className="text-xs font-bold tracking-[0.25em] text-signal-amber uppercase block mb-3">Core Features</span>
-              <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tighter">Built for performance.<br/>Engineered to last.</h2>
+              <span className="text-sm font-bold tracking-[0.25em] text-[#0EA5E9] uppercase flex items-center gap-4 mb-4">
+                <div className="h-[1px] w-8 bg-[#0EA5E9]" /> Core Features
+              </span>
+              <h2 className="text-5xl md:text-6xl font-display font-bold tracking-tighter text-white drop-shadow-xl">
+                Built to outperform.<br/>
+                <span className="text-gray-500">Engineered to last.</span>
+              </h2>
             </div>
-            <p className="text-gray-400 font-light max-w-sm text-sm leading-relaxed">
-              Every system we deploy meets stringent quality benchmarks for brightness, longevity, and environmental resilience.
+            <p className="text-gray-400 font-light max-w-sm text-base leading-relaxed">
+              Every system we deploy meets stringent quality benchmarks for extreme brightness, longevity, and environmental resilience.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Mini LED preview card */}
-            <div className="led-reveal md:col-span-2 lg:col-span-1 bg-dark-900 border border-white/5 rounded-3xl p-6 flex flex-col gap-4">
-              <MiniLEDCanvas />
-              <p className="text-sm text-gray-400 font-light text-center">Live LED pixel simulation</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[350px]">
+            
+            {/* Feature 01 (Span 2) */}
+            <div className="led-reveal group relative overflow-hidden rounded-[2.5rem] bg-[#080808] border border-white/10 md:col-span-2 shadow-2xl hover:border-signal-amber/50 transition-all duration-700 hover:-translate-y-2">
+              <div className="absolute inset-0 z-0">
+                <img src={features[0].image} alt={features[0].title} className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-all duration-1000 group-hover:scale-110 mix-blend-luminosity group-hover:mix-blend-normal" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+              </div>
+              <div className="relative z-10 p-10 h-full flex flex-col justify-end">
+                <span className="absolute top-10 right-10 text-signal-amber font-mono text-xl font-bold bg-signal-amber/10 px-6 py-2.5 rounded-full border border-signal-amber/20 backdrop-blur-md shadow-[0_0_20px_rgba(245,166,35,0.2)]">{features[0].num}</span>
+                <h3 className="text-4xl font-display font-bold text-white mb-4 group-hover:text-signal-amber transition-colors duration-500 drop-shadow-lg">{features[0].title}</h3>
+                <p className="text-gray-300 font-light leading-relaxed max-w-md group-hover:text-white transition-colors duration-500 text-lg drop-shadow-md">{features[0].desc}</p>
+              </div>
             </div>
 
-            {features.slice(0, 4).map((f) => (
+            {/* Live Simulation Canvas */}
+            <div className="led-reveal group relative overflow-hidden rounded-[2.5rem] bg-[#050505] border border-white/10 col-span-1 shadow-2xl hover:border-[#0EA5E9]/50 transition-all duration-700 hover:-translate-y-2 flex flex-col">
+              <div className="flex-1 relative w-full h-[60%]">
+                 <MiniLEDCanvas />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
+              </div>
+              <div className="p-8 relative z-10 h-[40%] flex flex-col justify-end">
+                <h3 className="text-2xl font-display font-bold text-[#0EA5E9] mb-2 group-hover:translate-x-1 transition-transform duration-500">Live LED Matrix</h3>
+                <p className="text-gray-400 text-sm font-light">Interactive pixel-pitch simulation rendering in real-time WebGL.</p>
+              </div>
+            </div>
+
+            {/* Feature 02 & 03 & 04 (Span 1 each) */}
+            {features.slice(1, 4).map((f) => (
               <div
                 key={f.num}
-                className="led-reveal group bg-dark-900 border border-white/5 p-8 rounded-3xl hover:border-signal-amber/30 hover:bg-white/[0.02] transition-all duration-500"
+                className="led-reveal group relative overflow-hidden bg-[#080808] border border-white/10 rounded-[2.5rem] hover:border-signal-amber/40 transition-all duration-700 hover:-translate-y-2 col-span-1 shadow-xl"
               >
-                <span className="text-signal-amber font-mono text-xs font-bold block mb-6 group-hover:tracking-widest transition-all duration-300">{f.num}</span>
-                <h3 className="text-xl font-display font-semibold mb-3 group-hover:text-signal-amber transition-colors duration-300">{f.title}</h3>
-                <p className="text-gray-400 text-sm font-light leading-relaxed">{f.desc}</p>
+                <div className="absolute inset-0 z-0">
+                  <img src={f.image} alt={f.title} className="w-full h-full object-cover opacity-20 group-hover:opacity-50 transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent" />
+                </div>
+                
+                {/* Glow Overlay */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-signal-amber/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                <div className="relative z-10 p-8 flex flex-col h-full justify-end">
+                  <span className="text-white/10 font-mono text-7xl font-bold absolute top-6 right-6 group-hover:text-signal-amber/20 transition-colors duration-500 pointer-events-none select-none">{f.num}</span>
+                  <div className="w-10 h-1 bg-white/20 group-hover:w-16 group-hover:bg-signal-amber transition-all duration-500 mb-6 rounded-full drop-shadow-md" />
+                  <h3 className="text-2xl font-display font-semibold mb-3 text-white group-hover:-translate-y-1 transition-transform duration-500 drop-shadow-lg">{f.title}</h3>
+                  <p className="text-gray-400 text-sm font-light leading-relaxed group-hover:text-gray-200 transition-colors duration-500 drop-shadow-md">{f.desc}</p>
+                </div>
               </div>
             ))}
 
-            {/* Last feature — spanning 2 cols on medium */}
-            <div className="led-reveal group md:col-span-2 bg-signal-amber rounded-3xl p-8 flex flex-col md:flex-row gap-8 items-center">
-              <div className="flex-1">
-                <span className="text-black/60 font-mono text-xs font-bold block mb-6">05</span>
-                <h3 className="text-2xl font-display font-bold text-black mb-3">{features[4].title}</h3>
-                <p className="text-black/70 text-sm font-medium leading-relaxed">{features[4].desc}</p>
+            {/* Feature 05 Connect CTA */}
+            <div className="led-reveal group relative grid-cols-1 md:col-span-2 lg:col-span-2 bg-gradient-to-r from-signal-amber to-yellow-500 rounded-[2.5rem] p-10 flex flex-col md:flex-row gap-8 items-center overflow-hidden hover:-translate-y-2 transition-transform duration-700 shadow-[0_20px_50px_rgba(245,166,35,0.2)]">
+              {/* Animated rings bg */}
+              <div className="absolute top-1/2 right-10 -translate-y-1/2 w-96 h-96 border border-black/10 rounded-full group-hover:scale-110 transition-transform duration-1000 pointer-events-none" />
+              <div className="absolute top-1/2 right-20 -translate-y-1/2 w-64 h-64 border border-black/10 rounded-full group-hover:scale-125 transition-transform duration-1000 pointer-events-none" />
+
+              <div className="flex-1 relative z-10">
+                <span className="text-black/60 font-mono text-sm font-bold tracking-[0.2em] uppercase block mb-4 border border-black/10 bg-black/5 w-max px-5 py-2 rounded-full">05 — {features[4].title}</span>
+                <h3 className="text-3xl md:text-4xl font-display font-bold text-black mb-4 leading-tight drop-shadow-sm">{features[4].desc}</h3>
               </div>
-              <Link to="/contact" className="flex-shrink-0 px-6 py-3 bg-black text-white font-semibold rounded-full hover:bg-dark-900 transition-colors duration-300 text-sm whitespace-nowrap">
-                Discuss Your Spec →
+              <Link to="/contact" className="relative z-10 flex-shrink-0 px-8 py-5 bg-black text-white font-bold rounded-full hover:bg-white hover:text-black hover:shadow-[0_0_30px_rgba(255,255,255,1)] transition-all duration-500 text-lg whitespace-nowrap flex items-center gap-3">
+                Discuss Your Spec <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
               </Link>
             </div>
           </div>
@@ -280,28 +341,61 @@ export default function LEDDisplay() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          USE CASES
+          USE CASES (Premium Image Cards)
       ═══════════════════════════════════════════════ */}
-      <section className="py-24 bg-dark-900 border-t border-white/5">
-        <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+      <section className="py-24 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+        {/* Subtle ambient gradients */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-signal-amber/5 to-transparent blur-[120px] pointer-events-none" />
 
-          <div className="led-reveal mb-16">
-            <span className="text-xs font-bold tracking-[0.25em] text-signal-amber uppercase block mb-3">Applications</span>
-            <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tighter">Where we deploy.</h2>
+        <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
+
+          <div className="led-reveal mb-20 text-center flex flex-col items-center">
+            <span className="text-xs font-bold tracking-[0.25em] text-signal-amber uppercase block mb-4 border border-signal-amber/20 bg-signal-amber/10 px-5 py-2 rounded-full">Applications</span>
+            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter text-white drop-shadow-xl">Where we deploy.</h2>
+            <p className="text-gray-400 mt-6 max-w-2xl text-base md:text-lg font-light leading-relaxed">From high-impact storefronts to mission-critical operations, our LED systems are engineered for diverse environments.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {useCases.map((u, i) => (
               <div
                 key={u.title}
-                className="led-reveal group flex gap-5 p-6 border border-white/5 rounded-2xl hover:border-signal-amber/30 hover:bg-white/[0.02] transition-all duration-500"
+                className="led-reveal group relative h-[380px] md:h-[450px] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_50px_rgba(14,165,233,0.15)] hover:border-[#0EA5E9]/30 transition-all duration-700 hover:-translate-y-3 cursor-pointer"
               >
-                <span className="text-signal-amber font-mono text-xs font-bold flex-shrink-0 pt-1">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h3 className="font-semibold text-white mb-1 group-hover:text-signal-amber transition-colors duration-300">{u.title}</h3>
-                  <p className="text-gray-500 text-sm font-light leading-relaxed">{u.desc}</p>
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={u.image} 
+                    alt={u.title} 
+                    className="w-full h-full object-cover opacity-50 group-hover:opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]" 
+                    loading="lazy"
+                  />
+                  {/* Dynamic Dark Gradients */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent group-hover:via-black/20 transition-colors duration-700" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-black/60 to-transparent" />
+                </div>
+                
+                {/* Content Overlay */}
+                <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
+                  <div className="mb-auto self-end">
+                    <span className="w-12 h-12 rounded-full flex items-center justify-center text-white/50 text-sm font-bold font-mono group-hover:text-[#0EA5E9] bg-white/5 backdrop-blur-md border border-white/10 group-hover:border-[#0EA5E9]/50 transition-all duration-500 shadow-lg">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  
+                  <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 className="text-2xl md:text-3xl font-display font-semibold text-white mb-3 drop-shadow-lg group-hover:text-[#0EA5E9] transition-colors duration-300">
+                      {u.title}
+                    </h3>
+                    
+                    {/* Animated height reveal for text */}
+                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                      <div className="overflow-hidden">
+                         <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed pt-2 drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                           {u.desc}
+                         </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

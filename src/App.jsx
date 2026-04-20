@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import CustomCursor from './components/ui/CustomCursor';
+import FloatingActions from './components/ui/FloatingActions';
 
 // Pages
 import Home from './pages/Home';
@@ -28,6 +29,7 @@ function App() {
       <CustomCursor />
       <ScrollToTop />
       <Navbar />
+      <FloatingActions />
       
       <main className="flex-grow w-full overflow-hidden">
         <Routes>

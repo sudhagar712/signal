@@ -23,6 +23,7 @@ export default function Services() {
       title: 'Sign Boards & Signages',
       desc: 'Clear, bold, and built for visibility. Both outdoor and indoor directional systems.',
       tags: ['Outdoor Signs', 'Indoor Signs', 'Directional', 'Custom Branding'],
+      isSecondary: true
     },
     {
       id: 'nameboards',
@@ -61,11 +62,13 @@ export default function Services() {
               className={`group relative overflow-hidden rounded-3xl p-8 transition-all duration-500 border
                 ${service.isPrimary 
                   ? 'bg-signal-amber text-black border-signal-amber col-span-1 md:col-span-2 lg:col-span-2' 
-                  : 'bg-white/5 border-white/5 hover:border-signal-amber/30 text-white'}`}
+                  : service.isSecondary
+                  ? 'bg-[#0EA5E9] text-white border-[#0EA5E9] col-span-1 md:col-span-2 lg:col-span-2 shadow-[0_10px_40px_rgba(14,165,233,0.3)]'
+                  : 'bg-white/5 border-white/5 hover:border-signal-amber/30 text-white col-span-1'}`}
             >
               <div className="relative z-10 flex flex-col h-full">
                 <h2 className="text-3xl font-display font-bold mb-4">{service.title}</h2>
-                <p className={`text-lg mb-8 ${service.isPrimary ? 'text-black/80' : 'text-gray-400 font-light'}`}>
+                <p className={`text-lg mb-8 ${service.isPrimary ? 'text-black/80' : service.isSecondary ? 'text-white/90 font-medium' : 'text-gray-400 font-light'}`}>
                   {service.desc}
                 </p>
                 
@@ -75,7 +78,11 @@ export default function Services() {
                       <span 
                         key={tag} 
                         className={`text-xs px-3 py-1 rounded-full border
-                          ${service.isPrimary ? 'border-black/20 text-black/90' : 'border-white/10 text-gray-400'}`}
+                          ${service.isPrimary 
+                            ? 'border-black/20 text-black/90' 
+                            : service.isSecondary
+                            ? 'border-white/30 text-white/90 bg-white/10'
+                            : 'border-white/10 text-gray-400'}`}
                       >
                         {tag}
                       </span>
@@ -86,7 +93,7 @@ export default function Services() {
                     <Link 
                       to={service.link}
                       className={`inline-flex items-center space-x-2 font-semibold group-hover:translate-x-2 transition-transform duration-300
-                        ${service.isPrimary ? 'text-black' : 'text-signal-amber'}`}
+                        ${service.isPrimary ? 'text-black' : service.isSecondary ? 'text-white' : 'text-signal-amber'}`}
                     >
                       <span>Explore Solution</span>
                       <ArrowRight size={18} />
@@ -94,7 +101,7 @@ export default function Services() {
                   ) : (
                     <Link 
                       to="/contact"
-                      className="inline-flex items-center space-x-2 font-semibold group-hover:translate-x-2 transition-transform duration-300 text-gray-400 hover:text-white"
+                      className={`inline-flex items-center space-x-2 font-semibold group-hover:translate-x-2 transition-transform duration-300 ${service.isSecondary ? 'text-white' : 'text-gray-400 hover:text-white'}`}
                     >
                       <span>Request Quote</span>
                       <ArrowRight size={18} />

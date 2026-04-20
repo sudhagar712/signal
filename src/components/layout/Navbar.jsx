@@ -27,24 +27,24 @@ export default function Navbar() {
     timelineRef.current
       .to(menuRef.current, {
         clipPath: 'circle(150% at calc(100% - 40px) 40px)',
-        duration: 0.8,
+        duration: 0.4,
         ease: 'power4.inOut',
         display: 'flex'
       })
       .fromTo('.mobile-nav-link', 
         { y: 50, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }, 
-        "-=0.4"
+        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: 'power3.out' }, 
+        "-=0.2"
       )
       .fromTo('.mobile-nav-cta',
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' },
+        { y: 0, opacity: 1, duration: 0.3, ease: 'power3.out' },
         "-=0.2"
       )
       .fromTo('.mobile-nav-footer',
         { opacity: 0 },
-        { opacity: 1, duration: 0.5, ease: 'power2.out' },
-        "-=0.2"
+        { opacity: 1, duration: 0.3, ease: 'power2.out' },
+        "-=0.1"
       );
 
     return () => {
