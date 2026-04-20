@@ -2,10 +2,17 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PageBanner from '../components/sections/PageBanner';
+import useSEO from '../hooks/useSEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
+  useSEO({
+    title: 'About Us',
+    description: 'Learn about Signal Visibility, our core values, and our dedication to pushing the limits of digital display technology.',
+    keywords: 'About Signal Visibility, LED Display Manufacturers, Branding Experts'
+  });
+
   const textRef = useRef(null);
 
   useEffect(() => {

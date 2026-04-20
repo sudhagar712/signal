@@ -73,7 +73,7 @@ export default function ContactForm() {
       <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-6 flex-1 flex flex-col">
         
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-display font-bold text-[#0EA5E9] mb-4 drop-shadow-md">Let's Get Started</h1>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-[#0EA5E9] mb-4 drop-shadow-md">Let's Get Started</h2>
           <hr className="border-white/10" />
         </div>
 

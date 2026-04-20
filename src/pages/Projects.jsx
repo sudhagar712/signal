@@ -1,11 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PageBanner from '../components/sections/PageBanner';
+import useSEO from '../hooks/useSEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Projects() {
+  useSEO({
+    title: 'Our Portfolio',
+    description: 'Explore the impressive digital branding portfolio of Signal Visibility. Discover how our LED displays and architectural signages transform businesses.',
+    keywords: 'Projects, LED Installations, Signage Portfolio, Recent Work, Signal Visibility Works'
+  });
+
+  const [activeFilter, setActiveFilter] = useState('All');
+
   const projects = [
     { id: 1, title: 'Nexus Tech Park', category: 'Outdoor LED Display', size: 'large', img: 'https://images.unsplash.com/photo-1542482329-873b7a5a8e04?auto=format&fit=crop&w=1200&q=80' },
     { id: 2, title: 'Aurora Mall', category: 'Indoor Retail Signage', size: 'small', img: 'https://images.unsplash.com/photo-1620573908865-c7cd89ba40cf?auto=format&fit=crop&w=800&q=80' },

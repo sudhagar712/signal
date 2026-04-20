@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import PageBanner from '../components/sections/PageBanner';
+import useSEO from '../hooks/useSEO';
 
 export default function Services() {
+  useSEO({
+    title: 'Our Services',
+    description: 'Explore our complete suite of branding solutions including LED Displays, ACP Elevations, Signages, and Premium Print Media.',
+    keywords: 'Services, LED Display Systems, Print Media, Signages, Flex Printing'
+  });
+
   const services = [
     {
       id: 'led',

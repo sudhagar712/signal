@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HomeHero from '../components/sections/HomeHero';
 import presentationVideo from '../assets/v1.mp4';
+import useSEO from '../hooks/useSEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -317,6 +318,12 @@ function StatItem({ endValue, suffix = "", label, delay = 0 }) {
 }
 
 export default function Home() {
+  useSEO({
+    title: 'Welcome',
+    description: 'Transforming brands visually with premium LED Displays, dynamic Signages, and cutting-edge digital visibility solutions.',
+    keywords: 'LED Displays, Digital Signage, Premium Brands, Visbility, Corporate Displays'
+  });
+
   // Hero entrance
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });

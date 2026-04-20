@@ -1,9 +1,15 @@
 import React from 'react';
 import PageBanner from '../components/sections/PageBanner';
+import useSEO from '../hooks/useSEO';
 import ContactInfo from '../components/sections/ContactInfo';
 import ContactForm from '../components/sections/ContactForm';
 
 export default function Contact() {
+  useSEO({
+    title: 'Contact Us',
+    description: 'Get in touch with Signal Visibility. Request a quote or book a strategic consultation for premium digital displays and aesthetic signages.',
+    keywords: 'Contact, Quote, Strategy, LED Purchase, Customer Support, Signal Visibility Contact'
+  });
 
   return (
     <div className="bg-background min-h-screen pb-20 relative">

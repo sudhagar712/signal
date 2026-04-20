@@ -4,6 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useSEO from '../hooks/useSEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,6 +100,11 @@ function MiniLEDCanvas() {
 // Page
 // ══════════════════════════════════════════════════════
 export default function LEDDisplay() {
+  useSEO({
+    title: 'LED Display Systems',
+    description: 'Ultra-high brightness LED display systems built for performance and tested for longevity. Designed for storefronts, event spaces, and mega visuals.',
+    keywords: 'LED Displays, LED Walls, High Brightness Displays, Outdoor LED, Commercial Screens'
+  });
 
   useEffect(() => {
     // Stagger fade-up for all .led-reveal elements
