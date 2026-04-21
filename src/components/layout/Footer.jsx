@@ -4,7 +4,7 @@ import logo from '../../assets/logo.png';
 export default function Footer() {
   return (
     <footer className="relative bg-[#020202] border-t border-white/5 pt-20 px-3 md:px-10 pb-10 overflow-hidden">
-      
+
       {/* Premium Background Design */}
       <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
         {/* Glow Effects */}
@@ -29,7 +29,7 @@ export default function Footer() {
               High-performance LED displays and visual branding systems designed to capture attention in the real world.
             </p>
           </div>
-          
+
           <div>
             <h4 className="text-white font-medium mb-6 uppercase tracking-wider text-sm">Solutions</h4>
             <ul className="space-y-4 text-gray-400 font-light">
@@ -39,7 +39,7 @@ export default function Footer() {
               <li><Link to="/services" className="hover:text-signal-amber transition-colors">Flex & Print</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-white font-medium mb-6 uppercase tracking-wider text-sm">Company</h4>
             <ul className="space-y-4 text-gray-400 font-light">
@@ -48,12 +48,12 @@ export default function Footer() {
               <li><Link to="/contact" className="hover:text-signal-amber transition-colors">Contact</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-white font-medium mb-6 uppercase tracking-wider text-sm">Contact Workspace</h4>
             <ul className="space-y-4 text-gray-400 font-light">
-              <li>info@signalvisibility.com</li>
-              <li>+91 98765 43210</li>
+              <li>sureshgk.signal@gmail.com</li>
+              <li>+91 73977 66555</li>
               <li className="pt-4">
                 <Link to="/contact" className="inline-block pb-1 border-b border-signal-amber text-signal-amber hover:text-white hover:border-white transition-colors">
                   Get in touch
@@ -62,7 +62,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-gray-500 text-sm">
           <p>© {new Date().getFullYear()} Signal. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">

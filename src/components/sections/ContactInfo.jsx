@@ -3,20 +3,20 @@ import React from 'react';
 export default function ContactInfo() {
   return (
     <div className="space-y-16">
-      <div>
-        <h3 className="text-2xl font-display font-medium mb-6 border-b border-white/10 pb-4">Contact Info</h3>
+      <div className="bg-blue-500 p-10 rounded-3xl border border-white/10">
+        <h3 className="text-3xl font-medium mb-6 border-b border-white/10 pb-4">Contact Info</h3>
         <ul className="space-y-6 text-gray-300 font-light">
           <li className="flex flex-col">
-            <span className="text-sm text-gray-500 font-medium uppercase tracking-wider mb-1">Phone</span>
-            <span className="text-xl">+91 98765 43210</span>
+            <span className="text-sm text-gray-900 font-bold uppercase tracking-wider mb-1">Phone</span>
+            <span className="text-xl">+91 73977 66555</span>
           </li>
           <li className="flex flex-col">
-            <span className="text-sm text-gray-500 font-medium uppercase tracking-wider mb-1">Email</span>
-            <span className="text-xl">hello@signalvisibility.com</span>
+            <span className="text-sm text-gray-900 font-bold uppercase tracking-wider mb-1">Email</span>
+            <span className="text-xl">sureshgk.signal@gmail.com</span>
           </li>
           <li className="flex flex-col">
-            <span className="text-sm text-gray-500 font-medium uppercase tracking-wider mb-1">Location</span>
-            <span className="text-xl">123 Visibility District,<br/>Tech Park Avenue, 400001</span>
+            <span className="text-sm text-gray-900 font-bold uppercase tracking-wider mb-1">Location</span>
+            <span className="text-xl">123 Visibility District,<br />Tech Park Avenue, 400001</span>
           </li>
         </ul>
       </div>

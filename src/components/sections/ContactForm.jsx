@@ -73,7 +73,7 @@ export default function ContactForm() {
       <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-6 flex-1 flex flex-col">
         
         <div className="mb-8">
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-[#0EA5E9] mb-4 drop-shadow-md">Let's Get Started</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 drop-shadow-md">Let's Get Started</h2>
           <hr className="border-white/10" />
         </div>
 
@@ -126,7 +126,7 @@ export default function ContactForm() {
         <button 
           disabled={formState.state === 'loading'}
           type="submit" 
-          className="w-full relative group   overflow-hidden flex items-center justify-center space-x-3 bg-[#0EA5E9] text-white font-bold rounded-xl px-6 py-5 transition-all duration-500 hover:shadow-[0_0_40px_rgba(14,165,233,0.4)] disabled:opacity-50 disabled:cursor-not-allowed mt-auto"
+          className="w-full relative group   overflow-hidden flex items-center justify-center space-x-3 bg-blue-500 text-white font-bold rounded-xl px-6 py-5 transition-all duration-500 hover:shadow-[0_0_40px_rgba(14,165,233,0.4)] disabled:opacity-50 disabled:cursor-not-allowed mt-auto"
         >
           <span className="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transform origin-left transition-transform duration-500 ease-out" />
           <span className="relative z-10 text-lg uppercase tracking-wider group-hover:text-[#0EA5E9] transition-colors duration-300">{formState.state === 'loading' ? 'Sending Request...' : 'Submit Request'}</span>

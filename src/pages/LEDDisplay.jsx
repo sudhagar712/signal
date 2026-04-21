@@ -14,9 +14,9 @@ gsap.registerPlugin(ScrollTrigger);
 function LEDShaderMesh() {
   const meshRef = useRef();
   const uniformsRef = useRef({
-    uTime:      { value: 0 },
-    uAmber:     { value: new THREE.Color('#F5A623') },
-    uDark:      { value: new THREE.Color('#0a0500') },
+    uTime: { value: 0 },
+    uAmber: { value: new THREE.Color('#F5A623') },
+    uDark: { value: new THREE.Color('#0a0500') },
   });
 
   const vertexShader = `
@@ -131,20 +131,20 @@ export default function LEDDisplay() {
   }, []);
 
   const features = [
-    { num: '01', title: 'Ultra-High Brightness',  desc: 'Cuts through direct sunlight — up to 10,000 nits for outdoor clarity at any time of day.', image: 'https://images.pexels.com/photos/28940484/pexels-photo-28940484.jpeg' },
+    { num: '01', title: 'Ultra-High Brightness', desc: 'Cuts through direct sunlight — up to 10,000 nits for outdoor clarity at any time of day.', image: 'https://images.pexels.com/photos/28940484/pexels-photo-28940484.jpeg' },
     { num: '02', title: 'Weather-Resistant', desc: 'Sealed against rain, dust, salt, and extreme temperature fluctuations.', image: 'https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?q=80&w=800&auto=format&fit=crop' },
     { num: '03', title: 'Seamless Quality', desc: 'Pixel-perfect imagery with ultra-fine pitch panels and no visible bezels.', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop' },
-    { num: '04', title: 'Energy-Efficient',   desc: 'Advanced LED diode arrays delivering maximum nits at minimum wattage.', image: 'https://images.unsplash.com/photo-1518556737724-e362c03e8740?q=80&w=800&auto=format&fit=crop' },
-    { num: '05', title: 'Custom Configurations',   desc: 'Any size, shape, or curve — fabricated and installed to your exact spec.', image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1000&auto=format&fit=crop' },
+    { num: '04', title: 'Energy-Efficient', desc: 'Advanced LED diode arrays delivering maximum nits at minimum wattage.', image: 'https://images.unsplash.com/photo-1518556737724-e362c03e8740?q=80&w=800&auto=format&fit=crop' },
+    { num: '05', title: 'Custom Configurations', desc: 'Any size, shape, or curve — fabricated and installed to your exact spec.', image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1000&auto=format&fit=crop' },
   ];
 
   const useCases = [
-    { title: 'Retail Storefronts',    desc: 'Drive footfall with dynamic, eye-catching displays at entrances and windows.', image: 'https://images.pexels.com/photos/7317346/pexels-photo-7317346.jpeg' },
-    { title: 'Shopping Complexes',    desc: 'Wayfinding, advertising, and event messaging at scale.', image: 'https://images.pexels.com/photos/35243843/pexels-photo-35243843.jpeg' },
-    { title: 'Highway Displays',      desc: 'High-brightness, large-format screens for maximum road visibility.', image: 'https://images.pexels.com/photos/11601940/pexels-photo-11601940.jpeg' },
-    { title: 'Corporate Spaces',      desc: 'Lobbies, boardrooms, and reception areas — communicate with clarity.', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' },
-    { title: 'Events & Exhibitions',  desc: 'Modular, rapid-deploy systems for any event footprint.', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop' },
-    { title: 'Control Rooms',         desc: 'Fine-pitch video walls for mission-critical, 24/7 monitoring environments.', image: 'https://images.pexels.com/photos/19452352/pexels-photo-19452352.jpeg' },
+    { title: 'Retail Storefronts', desc: 'Drive footfall with dynamic, eye-catching displays at entrances and windows.', image: 'https://images.pexels.com/photos/7317346/pexels-photo-7317346.jpeg' },
+    { title: 'Shopping Complexes', desc: 'Wayfinding, advertising, and event messaging at scale.', image: 'https://images.pexels.com/photos/35243843/pexels-photo-35243843.jpeg' },
+    { title: 'Highway Displays', desc: 'High-brightness, large-format screens for maximum road visibility.', image: 'https://images.pexels.com/photos/11601940/pexels-photo-11601940.jpeg' },
+    { title: 'Corporate Spaces', desc: 'Lobbies, boardrooms, and reception areas — communicate with clarity.', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Events & Exhibitions', desc: 'Modular, rapid-deploy systems for any event footprint.', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop' },
+    { title: 'Control Rooms', desc: 'Fine-pitch video walls for mission-critical, 24/7 monitoring environments.', image: 'https://images.pexels.com/photos/19452352/pexels-photo-19452352.jpeg' },
   ];
 
   return (
@@ -153,7 +153,7 @@ export default function LEDDisplay() {
       {/* ══════════════════════════════════════════════
           GLOBAL PREMIUM CHECK PATTERN BACKGROUND
       ═══════════════════════════════════════════════ */}
-      <div 
+      <div
         className="fixed inset-0 z-0 pointer-events-none opacity-30"
         style={{
           backgroundImage: `
@@ -236,10 +236,10 @@ export default function LEDDisplay() {
             {/* Right: Quick-stat cards */}
             <div className="led-reveal grid grid-cols-2 gap-4">
               {[
-                { v: '10K+',  l: 'Nits Brightness' },
-                { v: 'IP65',  l: 'Weather Rating' },
+                { v: '10K+', l: 'Nits Brightness' },
+                { v: 'IP65', l: 'Weather Rating' },
                 { v: '< 2mm', l: 'Pixel Pitch' },
-                { v: '24/7',  l: 'Support & Service' },
+                { v: '24/7', l: 'Support & Service' },
               ].map((s) => (
                 <div key={s.l} className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:border-signal-amber/40 transition-colors duration-300">
                   <div className="text-3xl font-display font-bold text-signal-amber mb-1">{s.v}</div>
@@ -269,7 +269,7 @@ export default function LEDDisplay() {
                 <div className="h-[1px] w-8 bg-[#0EA5E9]" /> Core Features
               </span>
               <h2 className="text-5xl md:text-6xl font-display font-bold tracking-tighter text-white drop-shadow-xl">
-                Built to outperform.<br/>
+                Built to outperform.<br />
                 <span className="text-gray-500">Engineered to last.</span>
               </h2>
             </div>
@@ -279,7 +279,7 @@ export default function LEDDisplay() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[350px]">
-            
+
             {/* Feature 01 (Span 2) */}
             <div className="led-reveal group relative overflow-hidden rounded-[2.5rem] bg-[#080808] border border-white/10 md:col-span-2 shadow-2xl hover:border-signal-amber/50 transition-all duration-700 hover:-translate-y-2">
               <div className="absolute inset-0 z-0">
@@ -296,8 +296,8 @@ export default function LEDDisplay() {
             {/* Live Simulation Canvas */}
             <div className="led-reveal group relative overflow-hidden rounded-[2.5rem] bg-[#050505] border border-white/10 col-span-1 shadow-2xl hover:border-[#0EA5E9]/50 transition-all duration-700 hover:-translate-y-2 flex flex-col">
               <div className="flex-1 relative w-full h-[60%]">
-                 <MiniLEDCanvas />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
+                <MiniLEDCanvas />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
               </div>
               <div className="p-8 relative z-10 h-[40%] flex flex-col justify-end">
                 <h3 className="text-2xl font-display font-bold text-[#0EA5E9] mb-2 group-hover:translate-x-1 transition-transform duration-500">Live LED Matrix</h3>
@@ -315,7 +315,7 @@ export default function LEDDisplay() {
                   <img src={f.image} alt={f.title} className="w-full h-full object-cover opacity-20 group-hover:opacity-50 transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent" />
                 </div>
-                
+
                 {/* Glow Overlay */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-signal-amber/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
@@ -369,17 +369,17 @@ export default function LEDDisplay() {
               >
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
-                  <img 
-                    src={u.image} 
-                    alt={u.title} 
-                    className="w-full h-full object-cover opacity-50 group-hover:opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]" 
+                  <img
+                    src={u.image}
+                    alt={u.title}
+                    className="w-full h-full object-cover opacity-50 group-hover:opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
                     loading="lazy"
                   />
                   {/* Dynamic Dark Gradients */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent group-hover:via-black/20 transition-colors duration-700" />
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-black/60 to-transparent" />
                 </div>
-                
+
                 {/* Content Overlay */}
                 <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
                   <div className="mb-auto self-end">
@@ -387,18 +387,18 @@ export default function LEDDisplay() {
                       {String(i + 1).padStart(2, '0')}
                     </span>
                   </div>
-                  
+
                   <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <h3 className="text-2xl md:text-3xl font-display font-semibold text-white mb-3 drop-shadow-lg group-hover:text-[#0EA5E9] transition-colors duration-300">
                       {u.title}
                     </h3>
-                    
+
                     {/* Animated height reveal for text */}
                     <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]">
                       <div className="overflow-hidden">
-                         <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed pt-2 drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-                           {u.desc}
-                         </p>
+                        <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed pt-2 drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                          {u.desc}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -439,14 +439,14 @@ export default function LEDDisplay() {
                 className="inline-flex items-center gap-3 px-8 py-5 bg-signal-amber text-black font-bold rounded-2xl text-xl hover:bg-white transition-colors duration-300 shadow-[0_0_40px_rgba(245,166,35,0.35)]"
               >
                 <span>📞</span>
-                +91 98765 43210
+                +91 73977 66555
               </a>
               <a
-                href="mailto:hello@signalvisibility.com"
+                href="mailto:sureshgk.signal@gmail.com"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 text-white font-medium rounded-2xl text-base hover:border-signal-amber/40 transition-colors duration-300"
               >
                 <span>✉</span>
-                hello@signalvisibility.com
+                sureshgk.signal@gmail.com
               </a>
               <p className="text-gray-500 text-xs text-center">123 Visibility District, Tech Park Avenue</p>
             </div>

@@ -12,24 +12,30 @@ export default function Contact() {
   });
 
   return (
-    <div className="bg-background min-h-screen pb-20 relative">
+    <div className="bg-[#050505] min-h-screen pb-20 relative selection:bg-blue-500 selection:text-white overflow-x-hidden">
+      {/* Checked Grid Background Pattern */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] [background-size:60px_60px]"></div>
+        <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-blue-600/5 blur-[140px] rounded-full"></div>
+        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-blue-500/5 blur-[120px] rounded-full"></div>
+      </div>
+
       <PageBanner 
         badge="Get In Touch"
         title="Contact Us"
         subtitle="Tell us what you need. We’ll make it stand out. Discuss your project requirements with our engineering team."
       />
-      <div className="absolute top-[60vh] right-0 w-1/2 h-full bg-gradient-radial from-signal-amber/5 to-transparent opacity-50 z-0 pointer-events-none"></div>
       
       <div className="container mx-auto px-6 md:px-30 relative z-10 pt-24">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
        
-            <div>
+            <div className="order-2 md:order-1">
               {/* Contact Details & Process */}
            <ContactInfo />
             </div>
            
-           <div>
+           <div className="order-1 md:order-2">
              {/* Form */}
           <ContactForm />
            </div>
